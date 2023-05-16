@@ -26,7 +26,10 @@ public class IdleState : Istate
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
             player.stateManager.Transition(player.stateManager.run);
 
-        if (Input.GetKey(KeyCode.Space) )
+        if (Input.GetKey(KeyCode.Space))
             player.stateManager.Transition(player.stateManager.jump);
+
+        if (Input.GetKey(KeyCode.W) && player.canClimb)
+            player.stateManager.Transition(player.stateManager.climb);
     }
 }

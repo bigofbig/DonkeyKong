@@ -3,9 +3,9 @@ using UnityEngine;
 public class JumpState : Istate
 {
     Player player;
-    float jumpX = 2;
     float jumpY = 5;
     bool startLandCasting = false;
+    LayerMask mask = LayerMask.GetMask("Ground");
     public JumpState(Player player)
     {
         this.player = player;
@@ -42,15 +42,13 @@ public class JumpState : Istate
     {
         if (player.rb.velocity.y < 0 && !startLandCasting)
             startLandCasting = true;
-
         if (!startLandCasting) return;
-        RaycastHit2D hit = Physics2D.BoxCast((Vector2)player.transform.position + player.boxCastOffset, player.boxCastSize, 0, Vector2.zero);
+        RaycastHit2D hit = Physics2D.BoxCast((Vector2)player.transform.position + player.boxCastOffset, player.boxCastSize, 0, Vector2.zero, 0, mask);
         Color c = new Color();
         if (hit.collider != null)
         {
             c = Color.green;
             player.stateManager.Transition(player.stateManager.idle);
-            Debug.Log("hit");
         }
         else
             c = Color.gray;

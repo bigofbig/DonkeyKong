@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 [Serializable]
 public class StateManager
 {
@@ -8,7 +7,7 @@ public class StateManager
     public IdleState idle;
     public RunState run;
     public JumpState jump;
-    //climb state
+    public ClimbState climb;
     //die State
     //hammer state
     //win State
@@ -20,6 +19,7 @@ public class StateManager
         idle = new IdleState(player);
         run = new RunState(player);
         jump = new JumpState(player);
+        climb = new ClimbState(player);
     }
 
     public void Initialize(Istate startingState)
@@ -32,14 +32,13 @@ public class StateManager
         currentState.OnExit();
         currentState = targetState;
         currentState.OnEnter();
-       
+
         OnStateChanged?.Invoke();
     }
     public void Update()
     {
         if (currentState == null) return;
         currentState.OnUpdate();
-        Debug.Log(currentState);
     }
     public void FixedUpdate()
     {

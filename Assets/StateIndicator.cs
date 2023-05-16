@@ -17,7 +17,6 @@ public class StateIndicator : MonoBehaviour
     void ChangeText()
     {
         textComponent.text = player.stateManager.currentState.ToString();
-        Debug.Log("called");
     }
     private void OnDisable()
     {
