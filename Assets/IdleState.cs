@@ -31,5 +31,6 @@ public class IdleState : Istate
 
         if (Input.GetKey(KeyCode.W) && player.canClimb)
             player.stateManager.Transition(player.stateManager.climb);
+        //how to seprate going down form going up?
     }
 }

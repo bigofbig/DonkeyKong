@@ -4,7 +4,7 @@ public class Player : MonoBehaviour
 {
     public StateManager stateManager;
     public Rigidbody2D rb;
-    public float runSpeed  = 2;
+    public float runSpeed = 2;
 
     [Header("Ground Cast")]
     public Vector2 boxCastSize;//y is height and x is widht 
@@ -12,6 +12,9 @@ public class Player : MonoBehaviour
 
     [Header("Climbing")]
     public float leaderXPos;
+    public float leaderEndYValue;
+    public float leaderStartYValue;
+    GameObject currentLeader;
     public bool canClimb { get; private set; } = false;
 
     void Awake()
@@ -24,8 +27,8 @@ public class Player : MonoBehaviour
     {
         if (collision.CompareTag("Leader"))
         {
+            currentLeader = collision.gameObject;
             SetClimbAbility(true);
-            leaderXPos = collision.transform.position.x;
         }
     }
     void OnTriggerExit2D(Collider2D collision)
@@ -52,4 +55,11 @@ public class Player : MonoBehaviour
     }
     public void SetClimbAbility(bool can)
     { canClimb = can; }
+    public void GetCurrentLeaderInfo()
+    {
+        Leader leader = currentLeader.GetComponent<Leader>();
+        leaderEndYValue = leader.endPos;
+        leaderStartYValue = leader.startPos;
+        leaderXPos = currentLeader.transform.position.x;
+    }
 }

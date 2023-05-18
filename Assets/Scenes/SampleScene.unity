@@ -667,6 +667,8 @@ MonoBehaviour:
   boxCastSize: {x: 0.6, y: 0.06}
   boxCastOffset: {x: 0, y: -1.04}
   leaderXPos: 0
+  leaderEndYValue: 0
+  leaderStartYValue: 0
 --- !u!212 &759524623
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -802,6 +804,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6b885f2601357e4cbb2bb4a9e2ed17a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spritRenderer: {fileID: 889111979}
+  endPosOffset: 1.18
+  startPosOffset: 0
 --- !u!61 &889111978
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -887,8 +892,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 889111976}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.6686842, y: 0.9878, z: 0}
-  m_LocalScale: {x: 1, y: 3.8253007, z: 1}
+  m_LocalPosition: {x: 3.6686842, y: 1.0088, z: 0}
+  m_LocalScale: {x: 1.011, y: 3.8673792, z: 1.011}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
