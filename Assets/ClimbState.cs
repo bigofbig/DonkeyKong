@@ -24,6 +24,7 @@ public class ClimbState : Istate
     public void OnExit()
     {
         player.rb.isKinematic = false;
+        player.SetClimbState();
     }
 
     public void OnFixedUpdate()
@@ -32,23 +33,27 @@ public class ClimbState : Istate
 
     public void OnUpdate()
     {
-        if (player.transform.position.y >= player.leaderEndYValue)
-        {
-            Debug.Log("leader finished from up! ");
-            player.stateManager.Transition(player.stateManager.idle);
-            return;
-        }
-        if (player.transform.position.y <= player.leaderStartYValue)
-        {
-            Debug.Log("leader finished from down! ");
-            player.stateManager.Transition(player.stateManager.idle);
-            return;
-        }
+        TransitionOnLeaderEnd();
+        InputHandler();
+        //Debug.Log(player.transform.position.y + " --> " + player.leaderStartYValue);
+    }
+
+    void InputHandler()
+    {
         if (Input.GetKey(KeyCode.W))
             player.transform.position += (Vector3)Vector2.up * moveUpSpeed * Time.deltaTime;
         if (Input.GetKey(KeyCode.S))
             player.transform.position -= (Vector3)Vector2.up * moveUpSpeed * Time.deltaTime;
     }
 
+    void TransitionOnLeaderEnd()
+    {
+        if (Input.GetKey(KeyCode.W))
+            if (player.transform.position.y >= player.leaderEndYValue)
+                player.stateManager.Transition(player.stateManager.idle);
+        if (Input.GetKey(KeyCode.S))
+            if (player.transform.position.y <= player.leaderStartYValue)
+                player.stateManager.Transition(player.stateManager.idle);
+    }
 
 }

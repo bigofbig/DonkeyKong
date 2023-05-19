@@ -13,6 +13,7 @@ public class JumpState : Istate
 
     public void OnEnter()
     {
+        player.animator.Play(player.jumpAnim);
         player.rb.AddForce(Vector2.up * jumpY, ForceMode2D.Impulse);
 
         bool staticJump = player.rb.velocity.x < .1f;

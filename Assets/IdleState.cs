@@ -10,6 +10,7 @@ public class IdleState : Istate
     public void OnEnter()
     {
         player.rb.velocity = Vector2.zero;
+        player.animator.Play(player.idleAnim);
     }
 
     public void OnExit()
@@ -29,8 +30,10 @@ public class IdleState : Istate
         if (Input.GetKey(KeyCode.Space))
             player.stateManager.Transition(player.stateManager.jump);
 
-        if (Input.GetKey(KeyCode.W) && player.canClimb)
+        if (Input.GetKey(KeyCode.W) && player.climbState == Player.ClimbStates.CanClimbUp)
             player.stateManager.Transition(player.stateManager.climb);
-        //how to seprate going down form going up?
+        if (Input.GetKey(KeyCode.S) && player.climbState == Player.ClimbStates.CanClimbDown)
+            player.stateManager.Transition(player.stateManager.climb);
+        //how to seprate going down form going upg
     }
 }

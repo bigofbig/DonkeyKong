@@ -4,7 +4,6 @@ public class RunState : Istate
 {
     Player player;
     bool playerShouldFaceRight;
-    float speed = 2;
     public RunState(Player player)
     {
         this.player = player;
@@ -13,6 +12,7 @@ public class RunState : Istate
     {
         playerShouldFaceRight = Input.GetKey(KeyCode.D);
         player.SetFaceing(playerShouldFaceRight);
+        player.animator.Play(player.runAnim);
     }
 
     public void OnExit()

@@ -2,9 +2,15 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [Header("Components")]
     public StateManager stateManager;
     public Rigidbody2D rb;
-    public float runSpeed = 2;
+    public Animator animator;
+
+    [Header("Components")]
+    public int runAnim = Animator.StringToHash("Run");
+    public int idleAnim = Animator.StringToHash("Idle");
+    public int jumpAnim = Animator.StringToHash("Jump");
 
     [Header("Ground Cast")]
     public Vector2 boxCastSize;//y is height and x is widht 
@@ -15,8 +21,11 @@ public class Player : MonoBehaviour
     public float leaderEndYValue;
     public float leaderStartYValue;
     GameObject currentLeader;
-    public bool canClimb { get; private set; } = false;
+    public ClimbStates climbState;
+    public enum ClimbStates { CantClimb, CanClimbUp, CanClimbDown }
 
+    [Header("Properties")]
+    public float runSpeed = 2;
     void Awake()
     {
         stateManager = new StateManager(this);
@@ -28,13 +37,38 @@ public class Player : MonoBehaviour
         if (collision.CompareTag("Leader"))
         {
             currentLeader = collision.gameObject;
-            SetClimbAbility(true);
+            //first time player reaches a leader
+            SetClimbState();
+            //how we undrestand when can climb up or down
+            //set this when player stops climbing
+            //set this when player ontrigger enter with leader 
+            //set this when player ontrigger exit with leader 
+            //remove can climb variable and put it into inum as a state
         }
     }
+
+    public void SetClimbState()
+    {
+        if (currentLeader == null)
+        {
+            climbState = ClimbStates.CantClimb;
+            return;
+        }
+
+        float determineHeight = -1;
+        if (currentLeader.transform.position.y - transform.position.y > determineHeight)
+            climbState = ClimbStates.CanClimbUp;
+        else
+            climbState = ClimbStates.CanClimbDown;
+    }
+
     void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Leader"))
-            SetClimbAbility(false);
+        {
+            currentLeader = null;
+            SetClimbState();
+        }
     }
     void Update()
     {
@@ -53,8 +87,6 @@ public class Player : MonoBehaviour
             transform.rotation = new Quaternion(0, 180, 0, 0);
 
     }
-    public void SetClimbAbility(bool can)
-    { canClimb = can; }
     public void GetCurrentLeaderInfo()
     {
         Leader leader = currentLeader.GetComponent<Leader>();
