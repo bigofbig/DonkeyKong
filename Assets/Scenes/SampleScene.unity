@@ -604,11 +604,15 @@ MonoBehaviour:
   runAnim: 1748754976
   idleAnim: 2081823275
   jumpAnim: 125937960
+  landAnim: 137525990
+  climbAnim: -1670875122
+  climStandAnim: 804478510
   boxCastSize: {x: 0.6, y: 0.06}
   boxCastOffset: {x: 0, y: -0.764}
   leaderXPos: 0
-  leaderEndYValue: 0
-  leaderStartYValue: 0
+  leaderClimbEndPoint: 0
+  leaderClimbStartPoint: 0
+  leaderEnd: 0
   climbState: 0
   runSpeed: 2
 --- !u!4 &759524624
@@ -695,8 +699,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spritRenderer: {fileID: 889111979}
-  endPosOffset: 1.02
-  startPosOffset: -1.02
+  endPosOffset: 0.7
+  startPosOffset: -0.72
+  leaderEnd: 0
 --- !u!61 &889111978
 BoxCollider2D:
   m_ObjectHideFlags: 0

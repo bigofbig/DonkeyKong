@@ -11,6 +11,9 @@ public class Player : MonoBehaviour
     public int runAnim = Animator.StringToHash("Run");
     public int idleAnim = Animator.StringToHash("Idle");
     public int jumpAnim = Animator.StringToHash("Jump");
+    public int landAnim = Animator.StringToHash("Land");
+    public int climbAnim = Animator.StringToHash("Climb");
+    public int climStandAnim = Animator.StringToHash("ClimbStand");
 
     [Header("Ground Cast")]
     public Vector2 boxCastSize;//y is height and x is widht 
@@ -18,8 +21,9 @@ public class Player : MonoBehaviour
 
     [Header("Climbing")]
     public float leaderXPos;
-    public float leaderEndYValue;
-    public float leaderStartYValue;
+    public float leaderClimbEndPoint;
+    public float leaderClimbStartPoint;
+    public float leaderEnd;
     GameObject currentLeader;
     public ClimbStates climbState;
     public enum ClimbStates { CantClimb, CanClimbUp, CanClimbDown }
@@ -90,8 +94,9 @@ public class Player : MonoBehaviour
     public void GetCurrentLeaderInfo()
     {
         Leader leader = currentLeader.GetComponent<Leader>();
-        leaderEndYValue = leader.endPos;
-        leaderStartYValue = leader.startPos;
+        leaderClimbEndPoint = leader.endPos;
+        leaderClimbStartPoint = leader.startPos;
         leaderXPos = currentLeader.transform.position.x;
+        leaderEnd = leader.leaderEnd;
     }
 }

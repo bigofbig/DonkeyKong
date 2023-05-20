@@ -6,12 +6,15 @@ public class Leader : MonoBehaviour
     [SerializeField] SpriteRenderer spritRenderer;
     public float endPos { get; private set; }
     public float startPos { get; private set; }
-    public float endPosOffset;
-    public float startPosOffset;
+    public float endPosOffset;//this should be serilazible not public
+    public float startPosOffset;//this should be serilazible not public
+    public float leaderEnd;
     void Awake()
     {
         endPos = transform.position.y + spritRenderer.bounds.extents.y + endPosOffset;
         startPos = transform.position.y - (spritRenderer.bounds.extents.y + startPosOffset);
+
+        leaderEnd = transform.position.y + spritRenderer.bounds.extents.y;
     }
     //public void SetStartPos(float leaderStartYValue)
     //    startPos = leaderStartYValue;
