@@ -9,6 +9,9 @@ public class Leader : MonoBehaviour
     public float endPosOffset;//this should be serilazible not public
     public float startPosOffset;//this should be serilazible not public
     public float leaderEnd;
+    //how we should make broker leader logic 
+    //player can go up but it stuck on certain height
+    public bool isBroken = false;
     void Awake()
     {
         endPos = transform.position.y + spritRenderer.bounds.extents.y + endPosOffset;

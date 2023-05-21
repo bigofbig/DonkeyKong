@@ -28,7 +28,7 @@ public class JumpState : Istate
     public void OnExit()
     {
         startLandCasting = false;
-        player.animator.Play(player.landAnim);
+        player.animator.Play(player.landToIdleAnim);
     }
 
     public void OnFixedUpdate()

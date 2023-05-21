@@ -1,8 +1,11 @@
 using System;
+using UnityEngine;
+
 [Serializable]
 public class StateManager
 {
     public Istate currentState { get; private set; }
+    public Istate lastState { get; private set; }
 
     public IdleState idle;
     public RunState run;
@@ -30,6 +33,7 @@ public class StateManager
     public void Transition(Istate targetState)
     {
         currentState.OnExit();
+        lastState = currentState;
         currentState = targetState;
         currentState.OnEnter();
 

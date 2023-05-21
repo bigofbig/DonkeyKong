@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     public int runAnim = Animator.StringToHash("Run");
     public int idleAnim = Animator.StringToHash("Idle");
     public int jumpAnim = Animator.StringToHash("Jump");
-    public int landAnim = Animator.StringToHash("Land");
+    public int landToIdleAnim = Animator.StringToHash("LandIdle");
     public int climbAnim = Animator.StringToHash("Climb");
     public int climStandAnim = Animator.StringToHash("ClimbStand");
 
@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     public Vector2 boxCastOffset;
 
     [Header("Climbing")]
+    public bool thisLeaderIsbroken;
     public float leaderXPos;
     public float leaderClimbEndPoint;
     public float leaderClimbStartPoint;
@@ -94,6 +95,7 @@ public class Player : MonoBehaviour
     public void GetCurrentLeaderInfo()
     {
         Leader leader = currentLeader.GetComponent<Leader>();
+        thisLeaderIsbroken = leader.isBroken;
         leaderClimbEndPoint = leader.endPos;
         leaderClimbStartPoint = leader.startPos;
         leaderXPos = currentLeader.transform.position.x;

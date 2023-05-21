@@ -10,7 +10,10 @@ public class IdleState : Istate
     public void OnEnter()
     {
         player.rb.velocity = Vector2.zero;
-        player.animator.Play(player.idleAnim);
+        if (player.stateManager.lastState == player.stateManager.jump)
+            player.animator.Play(player.landToIdleAnim);
+        else
+            player.animator.Play(player.idleAnim);
     }
 
     public void OnExit()
