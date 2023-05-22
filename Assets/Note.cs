@@ -8,6 +8,11 @@ then with fireing a function we convert the staright mod to final mod in cinemat
 so now we should make the final mod of each level
  * 
  * 
+inshaallah
+now i want to work on gridder making in edit mode 
+considerations 
+script should be removed from first gridder
+
  * 
  * 
  */
