@@ -13,6 +13,7 @@ public class ClimbState : Istate
     public void OnEnter()
     {
         player.GetCurrentLeaderInfo();
+        player.rb.velocity = Vector2.zero;
         player.rb.isKinematic = true;
         player.transform.position = new Vector3(player.leaderXPos, player.transform.position.y);
         player.animator.Play(player.climbAnim);

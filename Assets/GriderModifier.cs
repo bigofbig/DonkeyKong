@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class GridderModifier : MonoBehaviour
+public class GriderModifier : MonoBehaviour
 {
     [SerializeField] List<GameObject> gridders;
     void Start()
