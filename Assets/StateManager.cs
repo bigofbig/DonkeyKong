@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 
 [Serializable]
 public class StateManager
@@ -11,6 +10,7 @@ public class StateManager
     public RunState run;
     public JumpState jump;
     public ClimbState climb;
+    public DeadState dead;
     //die State
     //hammer state
     //win State
@@ -23,6 +23,7 @@ public class StateManager
         run = new RunState(player);
         jump = new JumpState(player);
         climb = new ClimbState(player);
+        dead = new DeadState(player);
     }
 
     public void Initialize(Istate startingState)

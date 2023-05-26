@@ -5,10 +5,10 @@ public class Barrel : MonoBehaviour
     [SerializeField] Rigidbody2D rb;
     [SerializeField] float lenght = 1;
     [SerializeField] LayerMask mask;
-    float moveSeed = 2;
+    float moveSeed = 4;
     void FixedUpdate()
     {
-        rb.velocity = new Vector2(2, rb.velocity.y);
+        rb.velocity = new Vector2(moveSeed, rb.velocity.y);
     }
     void Update()
     {

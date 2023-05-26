@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     public int landToIdleAnim = Animator.StringToHash("LandIdle");
     public int climbAnim = Animator.StringToHash("Climb");
     public int climStandAnim = Animator.StringToHash("ClimbStand");
+    public int deadStandAnim = Animator.StringToHash("Dead");
 
     [Header("Ground Cast")]
     public Vector2 boxCastSize;//y is height and x is widht 
@@ -30,13 +31,20 @@ public class Player : MonoBehaviour
     public enum ClimbStates { CantClimb, CanClimbUp, CanClimbDown }
 
     [Header("Properties")]
-    public float runSpeed = 2;
+    public float runSpeed = 4;
     void Awake()
     {
         stateManager = new StateManager(this);
         stateManager.Initialize(stateManager.idle);
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == 7)
+        {//layer 7 is barrel
+            stateManager.Transition(stateManager.dead);
+        }
+    }
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Leader"))

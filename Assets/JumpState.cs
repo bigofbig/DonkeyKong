@@ -6,6 +6,8 @@ public class JumpState : Istate
     float jumpY = 5;
     bool startLandCasting = false;
     LayerMask mask = LayerMask.GetMask("Ground");
+    LayerMask barrelMask = LayerMask.GetMask("Barrel");
+    bool jumpedABarrel = false;
     public JumpState(Player player)
     {
         this.player = player;
@@ -13,6 +15,7 @@ public class JumpState : Istate
 
     public void OnEnter()
     {
+
         player.animator.Play(player.jumpAnim);
         player.rb.AddForce(Vector2.up * jumpY, ForceMode2D.Impulse);
 
@@ -28,6 +31,7 @@ public class JumpState : Istate
     public void OnExit()
     {
         startLandCasting = false;
+        jumpedABarrel = false;
         player.animator.Play(player.landToIdleAnim);
     }
 
@@ -38,6 +42,20 @@ public class JumpState : Istate
     public void OnUpdate()
     {
         Land();
+
+        if (jumpedABarrel) return;
+        Color color = new Color();
+        RaycastHit2D hit = Physics2D.Linecast(player.transform.position, player.transform.position + Vector3.down * 2, barrelMask);
+        if (hit.collider)
+        {
+            color = Color.green;
+            jumpedABarrel = true;
+            //OnJumpedABarrel();
+        }
+        else
+            color = Color.red;
+
+        Debug.DrawLine(player.transform.position, player.transform.position + Vector3.down * 2, color);
     }
 
     void Land()
