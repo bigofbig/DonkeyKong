@@ -26,23 +26,30 @@ public class Player : MonoBehaviour
     public float leaderClimbEndPoint;
     public float leaderClimbStartPoint;
     public float leaderEnd;
-    GameObject currentLeader;
+    public GameObject currentLeader;
     public ClimbStates climbState;
     public enum ClimbStates { CantClimb, CanClimbUp, CanClimbDown }
 
     [Header("Properties")]
     public float runSpeed = 4;
+
+    [Header("====>Debug<====")]
+    [SerializeField] bool doDeath = true;
+
     void Awake()
     {
         stateManager = new StateManager(this);
         stateManager.Initialize(stateManager.idle);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == 7)
-        {//layer 7 is barrel
-            stateManager.Transition(stateManager.dead);
+        if (doDeath)
+        {
+            if (collision.gameObject.layer == 7)
+            {//layer 7 is barrel
+                stateManager.Transition(stateManager.dead);
+            }
         }
     }
     void OnTriggerEnter2D(Collider2D collision)
@@ -59,22 +66,6 @@ public class Player : MonoBehaviour
             //remove can climb variable and put it into inum as a state
         }
     }
-
-    public void SetClimbState()
-    {
-        if (currentLeader == null)
-        {
-            climbState = ClimbStates.CantClimb;
-            return;
-        }
-
-        float determineHeight = -1;
-        if (currentLeader.transform.position.y - transform.position.y > determineHeight)
-            climbState = ClimbStates.CanClimbUp;
-        else
-            climbState = ClimbStates.CanClimbDown;
-    }
-
     void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Leader"))
@@ -99,6 +90,20 @@ public class Player : MonoBehaviour
         else
             transform.rotation = new Quaternion(0, 180, 0, 0);
 
+    }
+    public void SetClimbState()
+    {
+        if (currentLeader == null)
+        {
+            climbState = ClimbStates.CantClimb;
+            return;
+        }
+
+        float determineHeight = -1;
+        if (currentLeader.transform.position.y - transform.position.y > determineHeight)
+            climbState = ClimbStates.CanClimbUp;
+        else
+            climbState = ClimbStates.CanClimbDown;
     }
     public void GetCurrentLeaderInfo()
     {

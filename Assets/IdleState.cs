@@ -3,6 +3,7 @@ using UnityEngine;
 public class IdleState : Istate
 {
     Player player;
+    float minimumDistanceToClimbALadder = .5f;
     public IdleState(Player player)
     {
         this.player = player;
@@ -33,10 +34,18 @@ public class IdleState : Istate
         if (Input.GetKey(KeyCode.Space))
             player.stateManager.Transition(player.stateManager.jump);
 
+        //set condiotion for distance from ladder 
         if (Input.GetKey(KeyCode.W) && player.climbState == Player.ClimbStates.CanClimbUp)
-            player.stateManager.Transition(player.stateManager.climb);
+            if (IsPlayerCloseEnough())
+                player.stateManager.Transition(player.stateManager.climb);
         if (Input.GetKey(KeyCode.S) && player.climbState == Player.ClimbStates.CanClimbDown)
-            player.stateManager.Transition(player.stateManager.climb);
-        //how to seprate going down form going upg
+            if (IsPlayerCloseEnough())
+                player.stateManager.Transition(player.stateManager.climb);
+    }
+
+    bool IsPlayerCloseEnough()
+    {
+        float distance = player.transform.position.x - player.currentLeader.transform.position.x;
+        return distance <= minimumDistanceToClimbALadder;
     }
 }

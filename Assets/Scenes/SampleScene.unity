@@ -1070,6 +1070,10 @@ PrefabInstance:
       propertyPath: startPosOffset
       value: -0.78
       objectReference: {fileID: 0}
+    - target: {fileID: 1867730429646260398, guid: a6a40df8634f03a41bb1c48e193820a8, type: 3}
+      propertyPath: m_Size.x
+      value: 0.39
+      objectReference: {fileID: 0}
     - target: {fileID: 2588524677950265384, guid: a6a40df8634f03a41bb1c48e193820a8, type: 3}
       propertyPath: m_LocalScale.y
       value: 0.4776841
@@ -4293,7 +4297,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &759524622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4314,6 +4318,7 @@ MonoBehaviour:
   landToIdleAnim: 902771978
   climbAnim: -1670875122
   climStandAnim: 804478510
+  deadStandAnim: 1293411866
   boxCastSize: {x: 0.6, y: 0.06}
   boxCastOffset: {x: 0, y: -0.764}
   thisLeaderIsbroken: 0
@@ -4321,8 +4326,10 @@ MonoBehaviour:
   leaderClimbEndPoint: 0
   leaderClimbStartPoint: 0
   leaderEnd: 0
+  currentLeader: {fileID: 0}
   climbState: 0
-  runSpeed: 2
+  runSpeed: 4
+  doDeath: 0
 --- !u!4 &759524624
 Transform:
   m_ObjectHideFlags: 0

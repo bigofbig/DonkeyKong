@@ -136,10 +136,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 3136211805321734211}
-  lenght: 0.47
-  mask:
+  wallCastlenght: {x: 0.8, y: 0, z: 0}
+  ladderCastlenght: {x: 0, y: -2.5, z: 0}
+  ladderCastStartOffset: {x: 0, y: -0.5, z: 0}
+  wallMask:
     serializedVersion: 2
     m_Bits: 64
+  ladderMask:
+    serializedVersion: 2
+    m_Bits: 256
+  gridderMask:
+    serializedVersion: 2
+    m_Bits: 8
+  boxCastOffset: {x: 0, y: -0.44, z: 0}
+  boxCastSize: {x: 0.1, y: 0.08}
 --- !u!95 &3136211805321734208
 Animator:
   serializedVersion: 3

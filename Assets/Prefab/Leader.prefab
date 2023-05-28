@@ -176,7 +176,7 @@ GameObject:
   - component: {fileID: 1867730429646260399}
   - component: {fileID: 1867730429646260398}
   - component: {fileID: 1867730429646260397}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leader
   m_TagString: Leader
   m_Icon: {fileID: 0}
@@ -273,7 +273,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.06405578, y: 1.1980106}
+  m_Size: {x: 0.25, y: 1.1980106}
   m_EdgeRadius: 0
 --- !u!114 &1867730429646260397
 MonoBehaviour:
