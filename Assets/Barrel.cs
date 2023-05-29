@@ -3,20 +3,33 @@ using UnityEngine;
 public class Barrel : MonoBehaviour
 {
     [SerializeField] Rigidbody2D rb;
-    [SerializeField] Vector3 wallCastlenght = new Vector3(1, 0);
+    float moveSeed = 4;
+
+    [Header("Casting")]
     [SerializeField] Vector3 ladderCastlenght;
     [SerializeField] Vector3 ladderCastStartOffset;
-    [SerializeField] LayerMask wallMask;
     [SerializeField] LayerMask ladderMask;
     [SerializeField] LayerMask gridderMask;
-    GameObject lastHitLadder;
-    GameObject originGridder;
-    float moveSeed = 4;
-    enum State { Roll, Climb }
-    State currentState = State.Roll;
     [SerializeField] Vector3 boxCastOffset;
     [SerializeField] Vector2 boxCastSize;
-//barrelAnimation & random laddering
+    GameObject lastHitLadder;
+    GameObject originGridder;
+
+    [Header("State")]
+    State currentState = State.Roll;
+    enum State { Roll, Climb }
+
+    [Header("Animation")]
+    [SerializeField] Animator animator;
+    int barrelRollAnim = Animator.StringToHash("Roll");
+    int barrelClimbAnim = Animator.StringToHash("BarrelClimb");
+    int chanseOfNotClimbingAladder = 4;
+
+    [Header("Boundry")]
+    [SerializeField] float boundry;
+    float firstFloorHeight = -9;
+    float barrelDiableHeight = -13;
+
     void FixedUpdate()
     {
         switch (currentState)
@@ -29,6 +42,32 @@ public class Barrel : MonoBehaviour
                 break;
         }
     }
+    void Update()
+    {
+        switch (currentState)
+        {
+            case State.Roll:
+                Boundry();
+                LadderLineCast();
+                break;
+            case State.Climb:
+                ReachingLadderEndCast();
+                break;
+        }
+    }
+
+    void Boundry()
+    {
+        if (gameObject.transform.position.y > firstFloorHeight)
+        {
+            if (gameObject.transform.position.x >= boundry || gameObject.transform.position.x <= -boundry)
+                RollOtherDirection();
+        }
+        else if (gameObject.transform.position.y < barrelDiableHeight)
+            gameObject.SetActive(false);
+        //one to last floor glitch
+    }
+
     void Roll()
     {
         rb.velocity = new Vector2(moveSeed, rb.velocity.y);
@@ -37,37 +76,23 @@ public class Barrel : MonoBehaviour
     {
         transform.position += Vector3.down * 2 * Time.fixedDeltaTime;
     }
-
-    void Update()
+    void ReachingLadderEndCast()
     {
-        switch (currentState)
+        RaycastHit2D hit = Physics2D.BoxCast(transform.position + boxCastOffset, boxCastSize, 0, Vector2.zero, 0, gridderMask);
+        if (hit)
         {
-            case State.Roll:
-                WallBoundry();
-                LadderRaycast();
-                break;
-            case State.Climb:
-                RaycastHit2D hit = Physics2D.BoxCast(transform.position + boxCastOffset, boxCastSize, 0, Vector2.zero, 0, gridderMask);
-                if (hit)
-                {
-                    if (originGridder == null)
-                        originGridder = hit.collider.gameObject;
+            if (originGridder == null)
+                originGridder = hit.collider.gameObject;
 
-                    if (hit.collider.gameObject != originGridder)
-                    {
-                        originGridder = hit.collider.gameObject;
-                        ChangeState(State.Roll);
-                    }
-                }
-                break;
+            if (hit.collider.gameObject != originGridder)
+            {
+                originGridder = hit.collider.gameObject;
+                ChangeState(State.Roll);
+            }
         }
     }
-    void OnDrawGizmos()
-    {
-        if (currentState == State.Climb)
-            Gizmos.DrawCube(transform.position + boxCastOffset, boxCastSize);
-    }
-    void LadderRaycast()
+
+    void LadderLineCast()
     {
         RaycastHit2D hit = Physics2D.Linecast(transform.position + ladderCastStartOffset, transform.position + ladderCastlenght, ladderMask);
         Debug.DrawLine(transform.position + ladderCastStartOffset, transform.position + ladderCastlenght);
@@ -75,7 +100,7 @@ public class Barrel : MonoBehaviour
         {
             lastHitLadder = hit.collider.gameObject;
 
-            if (true)
+            if (Random.Range(0, chanseOfNotClimbingAladder) == 0)
             {
                 ChangeState(State.Climb);
                 //change the state
@@ -89,37 +114,27 @@ public class Barrel : MonoBehaviour
         switch (desiredState)
         {
             case State.Roll:
+                animator.Play(barrelRollAnim);
+                rb.bodyType = RigidbodyType2D.Dynamic;
                 originGridder = null;
                 RollOtherDirection();
-                //rb static 
-                rb.bodyType = RigidbodyType2D.Dynamic;
-                //animation
                 break;
             case State.Climb:
-                //set transform
-                //rb dynamic
+                animator.Play(barrelClimbAnim);
                 rb.velocity = Vector2.zero;
                 rb.bodyType = RigidbodyType2D.Kinematic;
-                //animation
                 break;
         }
         currentState = desiredState;
     }
-    void WallBoundry()
-    {
-        RaycastHit2D hit = Physics2D.Linecast(
-            transform.position - wallCastlenght,
-            transform.position + wallCastlenght, wallMask.value);
-        if (hit.collider)
-        {
-            RollOtherDirection();
-            //reverse move
-        }
-        Debug.DrawLine(transform.position + -wallCastlenght, transform.position + wallCastlenght, Color.cyan);
-    }
     void RollOtherDirection()
     {
         moveSeed *= -1;
+    }
+    void OnDrawGizmos()
+    {
+        if (currentState == State.Climb)
+            Gizmos.DrawCube(transform.position + boxCastOffset, boxCastSize);
     }
 }
 

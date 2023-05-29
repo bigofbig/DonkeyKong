@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 1552018386250305428, guid: d217be9dc72d6994385844f1c2abe78a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -150,6 +150,7 @@ MonoBehaviour:
     m_Bits: 8
   boxCastOffset: {x: 0, y: -0.44, z: 0}
   boxCastSize: {x: 0.1, y: 0.08}
+  animator: {fileID: 3136211805321734208}
 --- !u!95 &3136211805321734208
 Animator:
   serializedVersion: 3
