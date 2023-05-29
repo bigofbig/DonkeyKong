@@ -30,6 +30,7 @@ public class Barrel : MonoBehaviour
     float firstFloorHeight = -9;
     float barrelDiableHeight = -13;
 
+    [Header("Redirection")]
     bool justRedirected = false;
     float redirectCoolDown = 1;
 
