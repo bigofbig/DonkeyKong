@@ -30,6 +30,9 @@ public class Barrel : MonoBehaviour
     float firstFloorHeight = -9;
     float barrelDiableHeight = -13;
 
+    bool justRedirected = false;
+    float redirectCoolDown = 1;
+
     void FixedUpdate()
     {
         switch (currentState)
@@ -60,7 +63,7 @@ public class Barrel : MonoBehaviour
     {
         if (gameObject.transform.position.y > firstFloorHeight)
         {
-            if (gameObject.transform.position.x > boundry || gameObject.transform.position.x < -boundry)
+            if (gameObject.transform.position.x >= boundry || gameObject.transform.position.x <= -boundry)
                 RollOtherDirection();
         }
         else if (gameObject.transform.position.y < barrelDiableHeight)
@@ -129,9 +132,21 @@ public class Barrel : MonoBehaviour
     }
     void RollOtherDirection()
     {
-        Debug.Log("rotate");
-        moveSeed *= -1;
+        if (!justRedirected)
+        {
+            Debug.Log("rotate");
+            moveSeed *= -1;
+            justRedirected = true;
+            Invoke(nameof(RedirectCoolDown), redirectCoolDown);
+
+        }
     }
+
+    void RedirectCoolDown()
+    {
+        justRedirected = false;
+    }
+
     void OnDrawGizmos()
     {
         if (currentState == State.Climb)
