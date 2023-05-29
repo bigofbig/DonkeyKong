@@ -60,7 +60,7 @@ public class Barrel : MonoBehaviour
     {
         if (gameObject.transform.position.y > firstFloorHeight)
         {
-            if (gameObject.transform.position.x >= boundry || gameObject.transform.position.x <= -boundry)
+            if (gameObject.transform.position.x > boundry || gameObject.transform.position.x < -boundry)
                 RollOtherDirection();
         }
         else if (gameObject.transform.position.y < barrelDiableHeight)
@@ -129,6 +129,7 @@ public class Barrel : MonoBehaviour
     }
     void RollOtherDirection()
     {
+        Debug.Log("rotate");
         moveSeed *= -1;
     }
     void OnDrawGizmos()
