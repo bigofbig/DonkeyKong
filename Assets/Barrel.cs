@@ -69,7 +69,6 @@ public class Barrel : MonoBehaviour
         }
         else if (gameObject.transform.position.y < barrelDiableHeight)
             gameObject.SetActive(false);
-        //one to last floor glitch
     }
 
     void Roll()
@@ -135,7 +134,6 @@ public class Barrel : MonoBehaviour
     {
         if (!justRedirected)
         {
-            Debug.Log("rotate");
             moveSeed *= -1;
             justRedirected = true;
             Invoke(nameof(RedirectCoolDown), redirectCoolDown);
