@@ -107,7 +107,7 @@ public class Player : MonoBehaviour
     }
     public void GetCurrentLeaderInfo()
     {
-        Leader leader = currentLeader.GetComponent<Leader>();
+        Ladder leader = currentLeader.GetComponent<Ladder>();
         thisLeaderIsbroken = leader.isBroken;
         leaderClimbEndPoint = leader.endPos;
         leaderClimbStartPoint = leader.startPos;

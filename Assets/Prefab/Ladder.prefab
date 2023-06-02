@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 1867730429646260398}
   - component: {fileID: 1867730429646260397}
   m_Layer: 8
-  m_Name: Leader
+  m_Name: Ladder
   m_TagString: Leader
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -284,12 +284,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1867730429646260396}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6b885f2601357e4cbb2bb4a9e2ed17a, type: 3}
+  m_Script: {fileID: 11500000, guid: 612ecf28d3be17f4e954d9d9b84856cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spritRenderer: {fileID: 1867730429646260399}
-  endPosOffset: 0.59
-  startPosOffset: -0.72
+  endPosOffset: 0
+  startPosOffset: 0
   leaderEnd: 0
   isBroken: 0
 --- !u!1 &2162396281479843159

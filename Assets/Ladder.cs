@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Leader : MonoBehaviour
+public class Ladder : MonoBehaviour
 {
     //we should remove leader  offset and calcultate this offset form playyers script half of sprite or htat we say extend
     [SerializeField] SpriteRenderer spritRenderer;
