@@ -8,7 +8,8 @@ public class Ladder : MonoBehaviour
     public float startPos { get; private set; }
     public float endPosOffset;//this should be serilazible not public
     public float startPosOffset;//this should be serilazible not public
-    public float leaderEnd;
+    public float ladderEnd;//ladder top
+    public float ladderStart;//ladder Down
     //how we should make broker leader logic 
     //player can go up but it stuck on certain height
     public bool isBroken = false;
@@ -17,10 +18,9 @@ public class Ladder : MonoBehaviour
         endPos = transform.position.y + spritRenderer.bounds.extents.y + endPosOffset;
         startPos = transform.position.y - (spritRenderer.bounds.extents.y + startPosOffset);
 
-        leaderEnd = transform.position.y + spritRenderer.bounds.extents.y;
+        ladderEnd = transform.position.y + spritRenderer.bounds.extents.y;
+        ladderStart = transform.position.y - spritRenderer.bounds.extents.y;
     }
-    //public void SetStartPos(float leaderStartYValue)
-    //    startPos = leaderStartYValue;
     void OnDrawGizmos()
     {
         Gizmos.DrawSphere(transform.position + new Vector3(0, spritRenderer.bounds.extents.y + endPosOffset), .2f);

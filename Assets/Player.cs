@@ -112,6 +112,6 @@ public class Player : MonoBehaviour
         leaderClimbEndPoint = leader.endPos;
         leaderClimbStartPoint = leader.startPos;
         leaderXPos = currentLeader.transform.position.x;
-        leaderEnd = leader.leaderEnd;
+        leaderEnd = leader.ladderEnd;
     }
 }
