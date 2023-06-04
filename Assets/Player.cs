@@ -32,9 +32,11 @@ public class Player : MonoBehaviour
 
     [Header("Properties")]
     public float runSpeed = 4;
+    float bound = 9.5f;
 
     [Header("====>Debug<====")]
     [SerializeField] bool doDeath = true;
+
 
     void Awake()
     {
@@ -46,8 +48,8 @@ public class Player : MonoBehaviour
     {
         if (doDeath)
         {
-            if (collision.gameObject.layer == 7)
-            {//layer 7 is barrel
+            if (collision.gameObject.layer == 7 || collision.gameObject.layer == 9)
+            {//layer 7 is barrel 9 is flame
                 stateManager.Transition(stateManager.dead);
             }
         }
@@ -81,8 +83,14 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         stateManager.FixedUpdate();
+        KeepPlayerInBoundry();
     }
-
+    void KeepPlayerInBoundry()
+    {
+        Vector2 marioPos = transform.position;
+        marioPos.x = Mathf.Clamp(marioPos.x, -bound, bound);
+        transform.position = marioPos;
+    }
     public void SetFaceing(bool toRight)
     {
         if (toRight)

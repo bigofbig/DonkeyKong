@@ -16,7 +16,7 @@ public class GriderModifier : MonoBehaviour
             collider.size = new Vector2(1.45f, .06f);
 
             PlatformEffector2D effector = gridder.AddComponent<PlatformEffector2D>();
-            effector.surfaceArc = 80;
+            effector.surfaceArc = 100;
         }
 
 

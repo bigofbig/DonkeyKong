@@ -22,12 +22,18 @@ public class Flame : MonoBehaviour
     enum ClimbDirection { Up, Down }
     ClimbDirection climbDirection;
 
-    [Header("LineCast")]
+    [Header("LadderLineCast")]
     [SerializeField] Vector3 linecastOffset;
     [SerializeField] Vector3 linecastEnd;
     LayerMask ladderMask;
     bool justFindALadderAbove = false;
     float belowRayCastCooldownDuration = 1;
+    [SerializeField] bool visualizeLadderCast = false;
+
+    [Header("GroundLineCast")]
+    [SerializeField] Vector3 groundcastOffset;
+    [SerializeField] Vector3 groundcastEnd;
+    [SerializeField] bool visualizeGroundCast = false;
 
     //going down or up move logic sepration
     //complete ladders invoke  climbing down too, when facing them
@@ -64,7 +70,15 @@ public class Flame : MonoBehaviour
     }
     void Move()
     {
-        rb.velocity = new Vector2(moveSpeed, rb.velocity.y) * Time.deltaTime;
+        if (IsGrounded())
+            rb.velocity = new Vector2(moveSpeed, rb.velocity.y) * Time.deltaTime;
+    }
+    bool IsGrounded()
+    {
+        RaycastHit2D hit = Physics2D.Linecast(transform.position + groundcastOffset, transform.position + groundcastEnd);
+        if (visualizeGroundCast)
+            Debug.DrawLine(transform.position + groundcastOffset, transform.position + groundcastEnd);
+        return hit;
     }
     void MovingOnLadder()
     {
@@ -89,11 +103,19 @@ public class Flame : MonoBehaviour
         if (state == States.Wandering)
             LadderBelowLineCast();
     }
+    void SetDirectionBasedOnBoundry()
+    {
+        if (transform.position.x > bound)
+            moveSpeed = Mathf.Abs(moveSpeed) * -1;
+        else if (transform.position.x < -bound)
+            moveSpeed = Mathf.Abs(moveSpeed);
+    }
     void LadderBelowLineCast()
     {
         if (justFindALadderAbove) return;
         RaycastHit2D hit = Physics2D.Linecast(transform.position + linecastOffset, transform.position + linecastEnd, ladderMask);
-        Debug.DrawLine(transform.position + linecastOffset, transform.position + linecastEnd);
+        if (visualizeLadderCast)
+            Debug.DrawLine(transform.position + linecastOffset, transform.position + linecastEnd);
         if (hit)
         {
             justFindALadderAbove = true;
@@ -102,7 +124,7 @@ public class Flame : MonoBehaviour
 
             //this to  logic will be the same , should i  go down this ladder that i just climved && should i go down this ladder that i recently faced
             //if decided to go down
-            if (true)
+            if (DoIUseLadderOrNot())
             {
                 climbDirection = ClimbDirection.Down;
                 SetLadderInfo(hit.collider.gameObject);
@@ -113,25 +135,13 @@ public class Flame : MonoBehaviour
 
         }
     }
-    void SetDirectionBasedOnBoundry()
-    {
-        if (transform.position.x > bound)
-        {
-            moveSpeed = Mathf.Abs(moveSpeed * -1);
-        }
-        else if (transform.position.x < -bound)
-        {
-            //Debug.Log("BVoudn");
-            moveSpeed = Mathf.Abs(moveSpeed);
-        }
-    }
     void OnTriggerEnter2D(Collider2D collision)
     {
         //comn
         if (collision.CompareTag("Leader"))
         {
             if (collision.transform.position.y < transform.position.y) return;
-            if (true)
+            if (DoIUseLadderOrNot())
             {
                 climbDirection = ClimbDirection.Up;
                 ChangeState(States.Climb);
@@ -173,12 +183,23 @@ public class Flame : MonoBehaviour
         moveSpeed *= -1;
         StartCoroutine(nameof(DirectionRandomizer));
     }
-
     void LadderBelowRayCastCooldown()
     {
         justFindALadderAbove = false;
     }
+    bool DoIUseLadderOrNot()
+    {
+        if (Random.Range(0, 3) == 0)
+        {
+            //      Debug.Log("Do");
+            return true;
+        }
+        else
+        {
+            //    Debug.Log("Dont");
+            return false;
+        }
+    }
 
-//    bool UsingLadderChance()
 }
 
