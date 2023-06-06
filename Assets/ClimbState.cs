@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public class ClimbState : Istate
 {
     Player player;
@@ -33,6 +32,12 @@ public class ClimbState : Istate
         TransitionOnLeaderEnd();
         InputHandler();
         AnimationHandler();
+        RaycastHit2D hit = Physics2D.CircleCast(player.transform.position, player.deathSphereRadius, Vector2.down);
+        if (hit)
+        {
+            if (hit.collider.gameObject.layer == 7 || hit.collider.gameObject.layer == 9 || hit.collider.gameObject.layer == 10)
+                Debug.Log(hit.collider.gameObject);
+        }
     }
 
     void AnimationHandler()

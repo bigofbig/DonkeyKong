@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
     public StateManager stateManager;
     public Rigidbody2D rb;
     public Animator animator;
-
+    public GameOver gameOver;
     [Header("Components")]
     public int runAnim = Animator.StringToHash("Run");
     public int idleAnim = Animator.StringToHash("Idle");
@@ -29,6 +29,8 @@ public class Player : MonoBehaviour
     public GameObject currentLeader;
     public ClimbStates climbState;
     public enum ClimbStates { CantClimb, CanClimbUp, CanClimbDown }
+    [Header("Climbing Deathcast")]//becuase while climbing rb goes kinematic
+    public float deathSphereRadius;
 
     [Header("Properties")]
     public float runSpeed = 4;
@@ -48,8 +50,8 @@ public class Player : MonoBehaviour
     {
         if (doDeath)
         {
-            if (collision.gameObject.layer == 7 || collision.gameObject.layer == 9)
-            {//layer 7 is barrel 9 is flame
+            if (collision.gameObject.layer == 7 || collision.gameObject.layer == 9 || collision.gameObject.layer == 10)
+            {//layer 7 is barrel 9 is flame 10 is fallingBarrel
                 stateManager.Transition(stateManager.dead);
             }
         }
@@ -121,5 +123,10 @@ public class Player : MonoBehaviour
         leaderClimbStartPoint = leader.startPos;
         leaderXPos = currentLeader.transform.position.x;
         leaderEnd = leader.ladderEnd;
+    }
+    private void OnDrawGizmos()
+    {
+        if (stateManager.currentState == stateManager.climb)
+            Gizmos.DrawSphere(transform.position, deathSphereRadius);
     }
 }

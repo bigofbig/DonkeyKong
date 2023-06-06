@@ -4,7 +4,6 @@ using UnityEngine;
 public class Barrel : MonoBehaviour
 {
     [SerializeField] Rigidbody2D rb;
-    [SerializeField] Collider2D _collider;
     float moveSeed = 4;
 
     [Header("Casting")]
@@ -42,7 +41,7 @@ public class Barrel : MonoBehaviour
 
     [Header("BarrelFall")]
     [SerializeField] bool isFallingVectically = false;
-    float fallSpeed = 2;
+    [SerializeField] float fallSpeed = 6;
     [SerializeField] Vector3 fallingCastStartOffset;
     [SerializeField] Vector3 fallingCastEnd;
 
@@ -75,10 +74,15 @@ public class Barrel : MonoBehaviour
         switch (currentState)
         {
             case State.Fall:
+                if (transform.position.y <= -9.9f)
+                {
+                    ChangeState(State.Ignite);
+                    return;
+                }
                 RaycastHit2D hit = Physics2D.Linecast(transform.position + fallingCastStartOffset, transform.position + fallingCastEnd, gridderMask);
                 Debug.DrawLine(transform.position + fallingCastStartOffset, transform.position + fallingCastEnd);
                 if (hit)
-                    transform.position += Vector3.down * fallSpeed/2 * Time.deltaTime;
+                    transform.position += Vector3.down * fallSpeed / 2 * Time.deltaTime;
                 else
                     transform.position += Vector3.down * fallSpeed * Time.deltaTime;
                 break;
@@ -108,10 +112,7 @@ public class Barrel : MonoBehaviour
         if (transform.position.y <= -9.8f && transform.position.x <= -5.87f)
         {
             if (currentState == State.Ignite) return;
-
-            //call curve animation
             ChangeState(State.Ignite);
-            StartCoroutine(nameof(Jump), 1);
         }
 
     }
@@ -155,14 +156,12 @@ public class Barrel : MonoBehaviour
     }
     void ChangeState(State desiredState)
     {
-        if (currentState == State.Fall)
-            _collider.enabled = true;
 
         switch (desiredState)
         {
             case State.Fall:
+                animator.Play(barrelClimbAnim);
                 rb.bodyType = RigidbodyType2D.Kinematic;
-                _collider.enabled = false;
                 break;
             case State.Roll:
                 animator.Play(barrelRollAnim);
@@ -176,8 +175,10 @@ public class Barrel : MonoBehaviour
                 rb.bodyType = RigidbodyType2D.Kinematic;
                 break;
             case State.Ignite:
+                animator.Play(barrelRollAnim);
                 rb.velocity = Vector2.zero;
                 rb.bodyType = RigidbodyType2D.Kinematic;
+                StartCoroutine(nameof(Jump), 1);
                 break;
         }
         currentState = desiredState;

@@ -10,6 +10,7 @@ public class DeadState : Istate
     {
         player.rb.bodyType = UnityEngine.RigidbodyType2D.Static;
         player.animator.Play(player.deadStandAnim);
+        player.gameOver.OnGameOver();
     }
 
     public void OnExit()
