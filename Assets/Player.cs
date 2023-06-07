@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
     public enum ClimbStates { CantClimb, CanClimbUp, CanClimbDown }
     [Header("Climbing Deathcast")]//becuase while climbing rb goes kinematic
     public float deathSphereRadius;
+    [SerializeField] bool visualizeDeathSphereCast = false;
 
     [Header("Properties")]
     public float runSpeed = 4;
@@ -124,9 +125,12 @@ public class Player : MonoBehaviour
         leaderXPos = currentLeader.transform.position.x;
         leaderEnd = leader.ladderEnd;
     }
-    private void OnDrawGizmos()
+    void OnDrawGizmos()
     {
-        if (stateManager.currentState == stateManager.climb)
-            Gizmos.DrawSphere(transform.position, deathSphereRadius);
+        if (visualizeDeathSphereCast)
+        {
+            if (stateManager.currentState == stateManager.climb)
+                Gizmos.DrawSphere(transform.position, deathSphereRadius);
+        }
     }
 }
