@@ -3746,6 +3746,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 601823015}
+  simpleBarrelSpawnPos: {x: -3.69, y: 4.49}
+  blueBarrelSpawnPos: {x: -5.93, y: 4.49}
 --- !u!4 &639122418 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1867730429646260392, guid: a6a40df8634f03a41bb1c48e193820a8, type: 3}
@@ -5429,8 +5431,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18c27455b8a006b4dafcee9368e2f22e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  simpleBarrel: {fileID: 0}
-  blueBarrel: {fileID: 0}
+  simpleBarrel: {fileID: 3136211805321734222, guid: e812091a26f70644db402cbae999b6d2, type: 3}
+  blueBarrel: {fileID: 971252486713580725, guid: 82c89686433096d468da74bbac44145f, type: 3}
 --- !u!1 &927113562
 GameObject:
   m_ObjectHideFlags: 0

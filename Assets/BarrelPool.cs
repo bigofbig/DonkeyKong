@@ -1,19 +1,23 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BarrelPool : MonoBehaviour
 {
+    public static BarrelPool current;
     [Header("Refrences")]
     [SerializeField] GameObject simpleBarrel;
     [SerializeField] GameObject blueBarrel;
+    [Header("Pool")]
+    List<GameObject> simpleBarrelPool = new List<GameObject>();
+    List<GameObject> blueBarrelPool = new List<GameObject>();
 
-    List<GameObject> barrelPool;
-    List<GameObject> blueBarrelPool;
-
-    public GameObject Barrel()
+    void Awake()
     {
-        foreach (var barrel in barrelPool)
+        current = this;
+    }
+    public GameObject SimpleBarrel()
+    {
+        foreach (var barrel in simpleBarrelPool)
         {
             if (!barrel.activeInHierarchy)
             {
@@ -22,6 +26,7 @@ public class BarrelPool : MonoBehaviour
             }
         }
         GameObject instantiated = Instantiate(simpleBarrel);
+        simpleBarrelPool.Add(instantiated);
         return instantiated;
     }
     public GameObject BlueBarrel()
@@ -34,7 +39,9 @@ public class BarrelPool : MonoBehaviour
                 return barrel;
             }
         }
-        GameObject instantiated = Instantiate(simpleBarrel);
+        GameObject instantiated = Instantiate(blueBarrel);
+        blueBarrelPool.Add(instantiated);
         return instantiated;
     }
+
 }
