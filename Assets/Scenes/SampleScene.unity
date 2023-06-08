@@ -3639,10 +3639,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 601823014}
+  - component: {fileID: 601823017}
   - component: {fileID: 601823016}
   - component: {fileID: 601823015}
   m_Layer: 0
-  m_Name: GFX
+  m_Name: Monke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3656,11 +3657,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 601823013}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.25, y: 0.125, z: 0}
+  m_LocalPosition: {x: -6, y: 5.375, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1984389384}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &601823015
 Animator:
@@ -3732,6 +3733,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &601823017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 601823013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 451f71ad6954175499d326e7eb7ad6ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 601823015}
 --- !u!4 &639122418 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1867730429646260392, guid: a6a40df8634f03a41bb1c48e193820a8, type: 3}
@@ -5330,6 +5344,7 @@ GameObject:
   m_Component:
   - component: {fileID: 889318229}
   - component: {fileID: 889318228}
+  - component: {fileID: 889318230}
   m_Layer: 0
   m_Name: BarrelStorage
   m_TagString: Untagged
@@ -5402,6 +5417,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &889318230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 889318227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18c27455b8a006b4dafcee9368e2f22e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simpleBarrel: {fileID: 0}
+  blueBarrel: {fileID: 0}
 --- !u!1 &927113562
 GameObject:
   m_ObjectHideFlags: 0
@@ -11609,37 +11638,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1984389383
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1984389384}
-  m_Layer: 0
-  m_Name: Monke
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1984389384
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1984389383}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.25, y: 5.25, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 601823014}
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1990075719 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8082010596417614611, guid: 80645b30aeea1984ba4e1bfbe46abd4f, type: 3}

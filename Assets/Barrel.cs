@@ -45,17 +45,16 @@ public class Barrel : MonoBehaviour
     [SerializeField] Vector3 fallingCastStartOffset;
     [SerializeField] Vector3 fallingCastEnd;
 
-    //1.125
-    //-0.875
-    //-4.625
-    //-6.75
-    //final grider -10
-    //falling ignitable barrel should be same logic with rolling one both of them should use one ending logic for converting to flame
     void Awake()
     {
         if (isFallingVectically)
             ChangeState(State.Fall);
-
+    }
+    void OnEnable()
+    {
+        if (isFallingVectically) return;//so we seprate falling barrel logic with others...
+        currentState = State.Roll;
+        moveSeed = Mathf.Abs(moveSeed);
     }
     void FixedUpdate()
     {
