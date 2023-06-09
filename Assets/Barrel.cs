@@ -53,7 +53,7 @@ public class Barrel : MonoBehaviour
     void OnEnable()
     {
         if (isFallingVectically) return;//so we seprate falling barrel logic with others...
-        currentState = State.Roll;
+        ChangeState(State.Roll);
         moveSeed = Mathf.Abs(moveSeed);
     }
     void FixedUpdate()

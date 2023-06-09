@@ -11,12 +11,29 @@ public class Monke : MonoBehaviour
     int rollBlueBarrel = Animator.StringToHash("RollBlueBarrel");
 
     [Header("Barrel Throw Logic")]
-    bool barrelInstantiateTime = false;
+    [SerializeField] GameObject blueFallingBarrel;
     [SerializeField] Vector2 simpleBarrelSpawnPos;
     [SerializeField] Vector2 blueBarrelSpawnPos;
+    [SerializeField] bool visualizeSpawnPoses = false;
+    bool barrelInstantiateTime = false;
+    
     void Start()
     {
-        StartCoroutine(nameof(RollBlueBarrel));
+        StartCoroutine(nameof(ThrowBlueFallingBarrel));
+    }
+    IEnumerator ThrowBlueFallingBarrel()
+    {
+        animator.Play(rollBlueBarrel);
+        while (!barrelInstantiateTime)
+        {
+            yield return null;
+        }
+        GameObject barrel = Instantiate(blueFallingBarrel); 
+        barrel.transform.position = blueBarrelSpawnPos;
+        barrelInstantiateTime = false;
+        float animChangeDelay = .2f;
+        yield return new WaitForSeconds(animChangeDelay);
+        StartCoroutine(nameof(Standby));
     }
     IEnumerator RollSimpleBarrel()
     {
@@ -53,16 +70,20 @@ public class Monke : MonoBehaviour
         float idleDuration = Random.Range(0, 2f);
         yield return new WaitForSeconds(idleDuration);
         animator.Play(chestHit);
-        float chestHitDuration = Random.Range(0, 2f);
+        float chestHitDuration = Random.Range(0, 4f);
         yield return new WaitForSeconds(chestHitDuration);
-        StartCoroutine(nameof(Standby));
+        if (Random.Range(0, 3) == 0)
+            StartCoroutine(nameof(RollBlueBarrel));
+        else
+            StartCoroutine(nameof(RollSimpleBarrel));
     }
     public void ItsTimeToThrowBarrel()
     {
         barrelInstantiateTime = true;
     }
-    void OnDrawGizmos()
+    void OnDrawGizmosSelected()
     {
+        if (!visualizeSpawnPoses) return;
         Gizmos.DrawSphere(simpleBarrelSpawnPos, .2f);
         Gizmos.DrawSphere(blueBarrelSpawnPos, .2f);
     }

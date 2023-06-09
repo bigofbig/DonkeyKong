@@ -50,7 +50,7 @@ public class JumpState : Istate
         {
             color = Color.green;
             jumpedABarrel = true;
-            //OnJumpedABarrel();
+            ScoreCounter.current.AddScore(100);
         }
         else
             color = Color.red;
