@@ -17,6 +17,7 @@ public class JumpState : Istate
     {
 
         player.animator.Play(player.jumpAnim);
+        //mybe Here
         player.rb.AddForce(Vector2.up * jumpY, ForceMode2D.Impulse);
 
         bool staticJump = player.rb.velocity.x < .1f;

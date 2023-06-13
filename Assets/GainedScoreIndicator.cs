@@ -8,7 +8,6 @@ public class GainedScoreIndicator : MonoBehaviour
     Player player;
     //mario jump is not relayable since it changes from time to time , mybe i should do it with transfom not physics
     // after endeing a ladder if uou keep up key and then move you may fall through gridder mybe its just leader (3) problem
-    //mario head can hit to top floor barrel or flame and cuase him death
     void Awake()
     {
         current = this;

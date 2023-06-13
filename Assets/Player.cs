@@ -51,17 +51,9 @@ public class Player : MonoBehaviour
     {
         if (doDeath)
         {
+            if (collision.gameObject.layer == 10 || collision.gameObject.layer == 7 || collision.gameObject.layer == 9)
+            {
             //layer 7 is barrel 9 is flame 10 is fallingBarrel
-            if (collision.gameObject.layer == 10)
-            {
-                stateManager.Transition(stateManager.dead);
-            }
-            if (collision.gameObject.layer == 7 || collision.gameObject.layer == 9)
-            {
-                //collider y pos is higher than player y pos,so its above player
-                //check its state , if its climbing ---> Die 
-                //else Ignore
-                //for this case we can use a interface
                 stateManager.Transition(stateManager.dead);
             }
         }
