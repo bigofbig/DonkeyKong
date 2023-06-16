@@ -33,7 +33,14 @@ public class Player : MonoBehaviour
     public float deathSphereRadius;
     [SerializeField] bool visualizeDeathSphereCast = false;
 
-    [Header("Properties")]
+    [Header("Jumping")]
+
+    public float jumpSpeed = 2;
+    public float jumpHeight = 2;
+    public float midAirSpeed = 1;
+    public float midAirDuration = 2;
+
+    [Header("properties")]
     public float runSpeed = 4;
     float bound = 9.5f;
 
@@ -53,7 +60,7 @@ public class Player : MonoBehaviour
         {
             if (collision.gameObject.layer == 10 || collision.gameObject.layer == 7 || collision.gameObject.layer == 9)
             {
-            //layer 7 is barrel 9 is flame 10 is fallingBarrel
+                //layer 7 is barrel 9 is flame 10 is fallingBarrel
                 stateManager.Transition(stateManager.dead);
             }
         }

@@ -8,21 +8,26 @@ public class JumpState : Istate
     LayerMask mask = LayerMask.GetMask("Ground");
     LayerMask barrelMask = LayerMask.GetMask("Barrel");
     bool jumpedABarrel = false;
+
+    enum State { Jump, MidAir, Fall }
+    State state;
+    float targetHeight = 0;
+    float midAirTimer = 0;
+    //-> mario can get to lowest platform of each gridder higher levels by a single jump 
     public JumpState(Player player)
     {
         this.player = player;
     }
-
     public void OnEnter()
     {
-
+        //Reseting temp Variables
+        state = State.Jump;
+        targetHeight = player.transform.position.y + player.jumpHeight;
+        midAirTimer = 0;
         player.animator.Play(player.jumpAnim);
-        //mybe Here
-        player.rb.AddForce(Vector2.up * jumpY, ForceMode2D.Impulse);
 
         bool staticJump = player.rb.velocity.x < .1f;
         if (staticJump) return;
-
         bool jumpRight = (player.transform.rotation.y == 0);
         if (jumpRight)
             player.rb.velocity = new Vector2(player.runSpeed, player.rb.velocity.y);
@@ -35,15 +40,41 @@ public class JumpState : Istate
         jumpedABarrel = false;
         player.animator.Play(player.landToIdleAnim);
     }
-
     public void OnFixedUpdate()
     {
     }
-
     public void OnUpdate()
     {
+        Debug.Log(state);
+        player.rb.velocity = new Vector3(player.rb.velocity.x, 0);
+        switch (state)
+        {
+            case State.Jump:
+                player.transform.position += Vector3.up * player.jumpSpeed * Time.deltaTime;
+                if (player.transform.position.y >= targetHeight)
+                    state = State.MidAir;
+                break;
+            case State.MidAir:
+                midAirTimer += Time.deltaTime;
+                if (midAirTimer < player.midAirDuration / 2)
+                    player.transform.position += Vector3.up * player.midAirSpeed * Time.deltaTime;
+                else
+                    player.transform.position += Vector3.down * player.midAirSpeed * Time.deltaTime;
+                if (midAirTimer >= player.midAirDuration)
+                {
+                    midAirTimer = 0;
+                    state = State.Fall;
+                }
+                break;
+            case State.Fall:
+                player.transform.position += Vector3.down * player.jumpSpeed * Time.deltaTime;
+                break;
+        }
         Land();
-
+        BarrelJumpScore();
+    }
+    void BarrelJumpScore()
+    {
         if (jumpedABarrel) return;
         Color color = new Color();
         RaycastHit2D hit = Physics2D.Linecast(player.transform.position, player.transform.position + Vector3.down * 2, barrelMask);
@@ -58,16 +89,16 @@ public class JumpState : Istate
 
         Debug.DrawLine(player.transform.position, player.transform.position + Vector3.down * 2, color);
     }
-
     void Land()
     {
-        if (player.rb.velocity.y < 0 && !startLandCasting)
+        if (state != State.Jump && !startLandCasting)
             startLandCasting = true;
         if (!startLandCasting) return;
         RaycastHit2D hit = Physics2D.BoxCast((Vector2)player.transform.position + player.boxCastOffset, player.boxCastSize, 0, Vector2.zero, 0, mask);
         Color c = new Color();
         if (hit.collider != null)
         {
+            Debug.LogError("Ground");
             c = Color.green;
             player.stateManager.Transition(player.stateManager.idle);
         }
