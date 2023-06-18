@@ -4,6 +4,8 @@ public class IdleState : Istate
 {
     Player player;
     float minimumDistanceToClimbALadder = .5f;
+    LayerMask mask = LayerMask.GetMask("Ground");
+    bool isGounded = false;
     public IdleState(Player player)
     {
         this.player = player;
@@ -28,6 +30,21 @@ public class IdleState : Istate
 
     public void OnUpdate()
     {
+        RaycastHit2D hit = Physics2D.BoxCast((Vector2)player.transform.position + player.boxCastOffset, player.boxCastSize, 0, Vector2.zero, 0, mask);
+        Color c = new Color();
+        if (hit.collider != null)
+        {
+            c = Color.green;
+            isGounded = true;
+        }
+        else
+        {
+            c = Color.gray;
+            isGounded = false;
+        }
+
+        if (!isGounded) return;
+
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
             player.stateManager.Transition(player.stateManager.run);
 

@@ -13,7 +13,6 @@ public class JumpState : Istate
     State state;
     float targetHeight = 0;
     float midAirTimer = 0;
-    //-> mario can get to lowest platform of each gridder higher levels by a single jump 
     public JumpState(Player player)
     {
         this.player = player;
@@ -45,7 +44,6 @@ public class JumpState : Istate
     }
     public void OnUpdate()
     {
-        Debug.Log(state);
         player.rb.velocity = new Vector3(player.rb.velocity.x, 0);
         switch (state)
         {
@@ -98,8 +96,12 @@ public class JumpState : Istate
         Color c = new Color();
         if (hit.collider != null)
         {
-            Debug.LogError("Ground");
             c = Color.green;
+            if (player.isHammerTime)
+            {
+                player.stateManager.Transition(player.stateManager.hammerIdle);
+                return;
+            }
             player.stateManager.Transition(player.stateManager.idle);
         }
         else

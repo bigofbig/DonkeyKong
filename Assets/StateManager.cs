@@ -11,8 +11,8 @@ public class StateManager
     public JumpState jump;
     public ClimbState climb;
     public DeadState dead;
-    //die State
-    //hammer state
+    public HammerIdleState hammerIdle;
+    public HammerRunState hammerRun;
     //win State
 
     public Action OnStateChanged;
@@ -24,6 +24,7 @@ public class StateManager
         jump = new JumpState(player);
         climb = new ClimbState(player);
         dead = new DeadState(player);
+        hammerIdle = new HammerIdleState(player);
     }
 
     public void Initialize(Istate startingState)

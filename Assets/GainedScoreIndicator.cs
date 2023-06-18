@@ -6,8 +6,6 @@ public class GainedScoreIndicator : MonoBehaviour
     [SerializeField] TMP_Text textMeshPro;
     [SerializeField] GameObject indicator;
     Player player;
-    //mario jump is not relayable since it changes from time to time , mybe i should do it with transfom not physics
-    // after endeing a ladder if uou keep up key and then move you may fall through gridder mybe its just leader (3) problem
     void Awake()
     {
         current = this;
