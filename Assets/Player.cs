@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -16,8 +15,8 @@ public class Player : MonoBehaviour
     public int climbAnim = Animator.StringToHash("Climb");
     public int climStandAnim = Animator.StringToHash("ClimbStand");
     public int deadStandAnim = Animator.StringToHash("Dead");
-    public int hammerIdleAnim=Animator.StringToHash("HammerIdle");
-    public int hammerRunAnim=Animator.StringToHash("HammerRun");
+    public int hammerIdleAnim = Animator.StringToHash("HammerIdle");
+    public int hammerRunAnim = Animator.StringToHash("HammerRun");
 
 
     [Header("Ground Cast")]
@@ -73,12 +72,12 @@ public class Player : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
-        /*hammer on triggercode
-         if(trigerd with hammer)
-        -StartTimer
-        in idleStateCode check if its hammer time swithces to hammerIdleState 
-        */
-        Invoke(nameof(HammerTimeIsOver), hammerTimeDuration);
+        if (collision.CompareTag("Hammer"))
+        {
+            Destroy(collision.gameObject);
+            Invoke(nameof(HammerTimeIsOver), hammerTimeDuration);
+            isHammerTime = true;
+        }
         if (collision.CompareTag("Leader"))
         {
             currentLeader = collision.gameObject;

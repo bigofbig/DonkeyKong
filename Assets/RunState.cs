@@ -32,7 +32,10 @@ public class RunState : Istate
 
     public void OnUpdate()
     {
-        //grounded ray cast
+
+        if(player.isHammerTime)
+            player.stateManager.Transition(player.stateManager.hammerRun);
+
         RaycastHit2D hit = Physics2D.BoxCast((Vector2)player.transform.position + player.boxCastOffset, player.boxCastSize, 0, Vector2.zero, 0, mask);
         Color c = new Color();
         if (hit.collider != null)

@@ -30,6 +30,9 @@ public class IdleState : Istate
 
     public void OnUpdate()
     {
+        if(player.isHammerTime)
+            player.stateManager.Transition(player.stateManager.hammerIdle);
+
         RaycastHit2D hit = Physics2D.BoxCast((Vector2)player.transform.position + player.boxCastOffset, player.boxCastSize, 0, Vector2.zero, 0, mask);
         Color c = new Color();
         if (hit.collider != null)

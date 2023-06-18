@@ -25,6 +25,7 @@ public class StateManager
         climb = new ClimbState(player);
         dead = new DeadState(player);
         hammerIdle = new HammerIdleState(player);
+        hammerRun = new HammerRunState(player);
     }
 
     public void Initialize(Istate startingState)

@@ -11,7 +11,7 @@ public class HammerIdleState : Istate
     }
     public void OnEnter()
     {
-        //play anim
+        player.rb.velocity = Vector2.zero;
         player.animator.Play(player.hammerIdleAnim);
     }
     public void OnExit()

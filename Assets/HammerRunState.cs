@@ -20,7 +20,6 @@ public class HammerRunState : Istate
 
     public void OnExit()
     {
-        throw new System.NotImplementedException();
     }
 
     public void OnFixedUpdate()
