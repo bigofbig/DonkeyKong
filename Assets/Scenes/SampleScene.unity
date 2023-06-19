@@ -3705,7 +3705,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &601823014
 Transform:
   m_ObjectHideFlags: 0
@@ -4420,7 +4420,9 @@ MonoBehaviour:
   midAirDuration: 0.4
   runSpeed: 4
   isHammerTime: 0
-  doDeath: 1
+  visualizeHammerSphereCast: 0
+  hammerSphereCastRadius: 1.18
+  doDeath: 0
 --- !u!114 &759524623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4441,7 +4443,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 759524621}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.01, y: 1.58, z: 0}
+  m_LocalPosition: {x: 6.36, y: 4.52, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 671079627}
@@ -6338,7 +6340,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1023765505}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.91, y: 2.33, z: 0}
+  m_LocalPosition: {x: 4.86, y: 5.14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

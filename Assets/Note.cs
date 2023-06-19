@@ -14,7 +14,7 @@ DONE cathces a and d button to swith between hammer run and idle
 DONE idle hammer anim
 
 --->sphere cast for enemy destroying
-also we need ground cast we same logic of idle and run ground cst
+DONE also we need ground cast we same logic of idle and run ground cst
 enmyDeath:
 enmy death logic can be same dedicated script between all enemies
 its better to have an inner on trigger enmy destroy logic to be seprate and better maintainable

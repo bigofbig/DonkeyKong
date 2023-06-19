@@ -49,6 +49,9 @@ public class Player : MonoBehaviour
     [Header("HammerTime")]
     public bool isHammerTime = false;
     float hammerTimeDuration = 10;
+    [Header("HammerSphereCast")]
+    public bool visualizeHammerSphereCast = false;
+    public float hammerSphereCastRadius = .7f;
 
     [Header("====>Debug<====")]
     [SerializeField] bool doDeath = true;
@@ -156,6 +159,12 @@ public class Player : MonoBehaviour
         {
             if (stateManager.currentState == stateManager.climb)
                 Gizmos.DrawSphere(transform.position, deathSphereRadius);
+        }
+        if (visualizeHammerSphereCast)
+        {
+
+            if (stateManager.currentState == stateManager.hammerIdle || stateManager.currentState == stateManager.hammerRun)
+                Gizmos.DrawSphere(transform.position, hammerSphereCastRadius);
         }
     }
 }
