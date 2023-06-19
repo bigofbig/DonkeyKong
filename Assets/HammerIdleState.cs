@@ -38,19 +38,14 @@ public class HammerIdleState : Istate
 
         //sphere cast 
 
-        RaycastHit2D hit = Physics2D.CircleCast(player.transform.position, player.hammerSphereCastRadius, Vector2.zero);
-        
-        if (hit.collider.gameObject.layer == 7 || hit.collider.gameObject.layer == 9 || hit.collider.gameObject.layer == 10)
-        {
-            Debug.Log(hit.collider.gameObject);
-            hit.collider.gameObject.SetActive(false);
-                //dont forget to puase time
-            //call enemy destroy and add Score using score indicator
-        }
+        player.HammerDestoryingCast();
+        //dont forget to puase time
+        //call enemy destroy and add Score using score indicator
 
 
     }
 
+   
     void IsGrounded()
     {
         RaycastHit2D hit = Physics2D.BoxCast((Vector2)player.transform.position + player.boxCastOffset, player.boxCastSize, 0, Vector2.zero, 0, mask);

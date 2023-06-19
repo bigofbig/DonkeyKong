@@ -15,6 +15,7 @@ DONE idle hammer anim
 
 --->sphere cast for enemy destroying
 DONE also we need ground cast we same logic of idle and run ground cst
+SpherCast Offset based on player facieng sphercast need to change pos based on facieng 
 enmyDeath:
 enmy death logic can be same dedicated script between all enemies
 its better to have an inner on trigger enmy destroy logic to be seprate and better maintainable

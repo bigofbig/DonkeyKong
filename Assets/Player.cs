@@ -48,10 +48,11 @@ public class Player : MonoBehaviour
 
     [Header("HammerTime")]
     public bool isHammerTime = false;
-    float hammerTimeDuration = 10;
+    float hammerTimeDuration = 10000;
     [Header("HammerSphereCast")]
     public bool visualizeHammerSphereCast = false;
-    public float hammerSphereCastRadius = .7f;
+    [SerializeField]float hammerSphereCastRadius = 1.5f;
+    public LayerMask layersOfEnemies;
 
     [Header("====>Debug<====")]
     [SerializeField] bool doDeath = true;
@@ -153,6 +154,16 @@ public class Player : MonoBehaviour
         leaderXPos = currentLeader.transform.position.x;
         leaderEnd = leader.ladderEnd;
     }
+    public void HammerDestoryingCast()
+    {
+        RaycastHit2D hit = Physics2D.CircleCast(transform.position, hammerSphereCastRadius, Vector2.zero, 0, layersOfEnemies);
+        if (hit)
+        {
+            //call destory functin in that barrel
+            Debug.Log(hit.collider.gameObject.name);
+            hit.collider.gameObject.SetActive(false);
+        }
+    }
     void OnDrawGizmos()
     {
         if (visualizeDeathSphereCast)
@@ -160,9 +171,9 @@ public class Player : MonoBehaviour
             if (stateManager.currentState == stateManager.climb)
                 Gizmos.DrawSphere(transform.position, deathSphereRadius);
         }
+        Gizmos.color = new Color(1, 1, 1, .2f);
         if (visualizeHammerSphereCast)
         {
-
             if (stateManager.currentState == stateManager.hammerIdle || stateManager.currentState == stateManager.hammerRun)
                 Gizmos.DrawSphere(transform.position, hammerSphereCastRadius);
         }

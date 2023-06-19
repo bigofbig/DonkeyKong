@@ -38,6 +38,8 @@ public class HammerRunState : Istate
             player.stateManager.Transition(player.stateManager.idle);
             return;
         }
+        player.HammerDestoryingCast();
+
 
         RaycastHit2D hit = Physics2D.BoxCast((Vector2)player.transform.position + player.boxCastOffset, player.boxCastSize, 0, Vector2.zero, 0, mask);
         Color c = new Color();
