@@ -18,6 +18,13 @@ DONE also we need ground cast we same logic of idle and run ground cst
 SpherCast Offset based on player facieng sphercast need to change pos based on facieng 
 enmyDeath:
 enmy death logic can be same dedicated script between all enemies
+common behavior on enimies death :
+timefreeze 
+destroy anim
+adding score 
+calling score indicator
+description: time gets freezed some seconds 
+death logic shloud be called from player not with barrel or flame through inteface
 its better to have an inner on trigger enmy destroy logic to be seprate and better maintainable
 
 

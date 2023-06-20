@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Flame : MonoBehaviour
+public class Flame : MonoBehaviour, IHammerable
 {
 
     Rigidbody2D rb;
@@ -201,5 +201,9 @@ public class Flame : MonoBehaviour
         }
     }
 
+    public void OnHammered()
+    {
+
+    }
 }
 

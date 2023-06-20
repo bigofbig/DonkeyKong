@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Barrel : MonoBehaviour
+public class Barrel : MonoBehaviour,IHammerable
 {
     [SerializeField] Rigidbody2D rb;
     float moveSeed = 4;
@@ -38,7 +38,7 @@ public class Barrel : MonoBehaviour
     [Header("BarrelIgnite")]
     [SerializeField] bool IgnitableBarrel = false;
     [SerializeField] AnimationCurve curve;
-
+    [SerializeField] GameObject flame;
     [Header("BarrelFall")]
     [SerializeField] bool isFallingVectically = false;
     [SerializeField] float fallSpeed = 6;
@@ -215,8 +215,14 @@ public class Barrel : MonoBehaviour
             transform.position = Vector3.Lerp(start, end, time) + new Vector3(0, value);
             yield return null;
         }
-        // done , now instantiate a  
-        GameObject flame = Instantiate(ObjectPool.current.flame, transform.position, Quaternion.identity);
+        Instantiate(flame, transform.position, Quaternion.identity);
+        gameObject.SetActive(false);
+    }
+    public void OnHammered()
+    {
+       TimeController.current.TimeFreezeRequest(1);
+        GameObject deathVFX= BarrelPool.current.EnemyDeathVFX();
+        deathVFX.transform.position = transform.position;
         gameObject.SetActive(false);
     }
     void OnDrawGizmos()

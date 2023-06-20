@@ -148,6 +148,18 @@ MonoBehaviour:
   boxCastSize: {x: 0.1, y: 0.08}
   animator: {fileID: 3136211805321734208}
   boundry: 9.66
+  IgnitableBarrel: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  flame: {fileID: 6776626102653367139, guid: 982314180f369454aa3ce878e32d03f3, type: 3}
+  isFallingVectically: 0
+  fallSpeed: 6
+  fallingCastStartOffset: {x: 0, y: 0, z: 0}
+  fallingCastEnd: {x: 0, y: 0, z: 0}
 --- !u!95 &3136211805321734208
 Animator:
   serializedVersion: 3
@@ -160,7 +172,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: f7c55dbdb9c75ec47818bbaaa50a8609, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 

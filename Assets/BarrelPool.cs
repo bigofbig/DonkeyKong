@@ -7,10 +7,11 @@ public class BarrelPool : MonoBehaviour
     [Header("Refrences")]
     [SerializeField] GameObject simpleBarrel;
     [SerializeField] GameObject blueBarrel;
+    [SerializeField] GameObject enemyDeathVFX;
     [Header("Pool")]
     List<GameObject> simpleBarrelPool = new List<GameObject>();
     List<GameObject> blueBarrelPool = new List<GameObject>();
-
+    List<GameObject> EnemyDeathVFXPool = new List<GameObject>();
     void Awake()
     {
         current = this;
@@ -44,4 +45,18 @@ public class BarrelPool : MonoBehaviour
         return instantiated;
     }
 
+    public GameObject EnemyDeathVFX()
+    {
+        foreach (var vfx in EnemyDeathVFXPool)
+        {
+            if (!vfx.activeInHierarchy)
+            {
+                vfx.SetActive(true);
+                return vfx;
+            }
+        }
+        GameObject instantiated = Instantiate(enemyDeathVFX);
+        EnemyDeathVFXPool.Add(instantiated);
+        return instantiated;
+    }
 }

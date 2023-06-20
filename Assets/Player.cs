@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
     float hammerTimeDuration = 10000;
     [Header("HammerSphereCast")]
     public bool visualizeHammerSphereCast = false;
-    [SerializeField]float hammerSphereCastRadius = 1.5f;
+    [SerializeField] float hammerSphereCastRadius = 1.5f;
     public LayerMask layersOfEnemies;
 
     [Header("====>Debug<====")]
@@ -160,8 +160,11 @@ public class Player : MonoBehaviour
         if (hit)
         {
             //call destory functin in that barrel
-            Debug.Log(hit.collider.gameObject.name);
-            hit.collider.gameObject.SetActive(false);
+            Barrel barrel = hit.collider.GetComponent<Barrel>();
+            if (barrel)
+                barrel.OnHammered();
+            else
+                hit.collider.GetComponent<Flame>().OnHammered();
         }
     }
     void OnDrawGizmos()
