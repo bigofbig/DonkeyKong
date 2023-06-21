@@ -7,6 +7,7 @@ public class TimeController : MonoBehaviour
     void Awake()
     {
         current = this;
+        Time.timeScale = 1;
     }
 
     internal void FreezeTheTimePermanetly()

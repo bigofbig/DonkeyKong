@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
 
     [Header("HammerTime")]
     public bool isHammerTime = false;
-    float hammerTimeDuration = 15;
+    float hammerTimeDuration = 8;
     [Header("HammerSphereCast")]
     public bool visualizeHammerSphereCast = false;
     [SerializeField] float hammerSphereCastRadius = 1.5f;
@@ -61,6 +61,10 @@ public class Player : MonoBehaviour
     {
         stateManager = new StateManager(this);
         stateManager.Initialize(stateManager.idle);
+    }
+    private void Start()
+    {
+        GameOver.current.OnGameOver += OnPlayerDeath;
     }
     void OnPlayerDeath()
     {

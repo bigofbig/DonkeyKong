@@ -7,7 +7,7 @@ public class BonusCounter : MonoBehaviour
     [SerializeField] TMP_Text textMeshPro;
     void Start()
     {
-        InvokeRepeating(nameof(DecreaseValue), 1, 1);
+        InvokeRepeating(nameof(DecreaseValue), 0, 1);
     }
     void DecreaseValue()
     {
@@ -16,7 +16,8 @@ public class BonusCounter : MonoBehaviour
         if (remainingValue <= 0)
         {
             //call game over 
-            FindObjectOfType<GameOver>().OnGameOver();
+            GameOver.current.CallGameOver();
+            textMeshPro.text = "00000";
             return;
         }
         string currentValueStringed = remainingValue.ToString();
@@ -34,8 +35,6 @@ public class BonusCounter : MonoBehaviour
 
         textMeshPro.text = valueAndRequriedZerosBehindIt;
     }
-
-    //if value is zero call game over 
 
 
 }

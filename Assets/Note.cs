@@ -28,15 +28,16 @@ DONE death logic shloud be called from player not with barrel or flame through i
 DONE does eneimes death has diffrent score?
 DONE changing hammer damagwer range offset based on mario facing !
 
--->bonus counter:
-game over:
-we use observer pattern for game over
-we habve game over component which has a on game over 
---> working on enimeis reaction on player death
+DONE bonus counter:
+DONE game over:
+DONE we use observer pattern for game over
+DONE we habve game over component which has a on game over 
+DONE working on enimeis reaction on player death
 
-//game over and three live mehcanism
+
+-->game over and three live mehcanism
+if plyaer have live ,on new round his scores remains
 //3 live UI
-//observer pattern for its death
 
  
  
