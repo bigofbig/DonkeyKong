@@ -6,18 +6,17 @@ public class Player : MonoBehaviour
     public StateManager stateManager;
     public Rigidbody2D rb;
     public Animator animator;
-    public GameOver gameOver;
-    [Header("Components")]
-    public int runAnim = Animator.StringToHash("Run");
-    public int idleAnim = Animator.StringToHash("Idle");
-    public int jumpAnim = Animator.StringToHash("Jump");
-    public int landToIdleAnim = Animator.StringToHash("LandIdle");
-    public int climbAnim = Animator.StringToHash("Climb");
-    public int climStandAnim = Animator.StringToHash("ClimbStand");
-    public int deadStandAnim = Animator.StringToHash("Dead");
-    public int hammerIdleAnim = Animator.StringToHash("HammerIdle");
-    public int hammerRunAnim = Animator.StringToHash("HammerRun");
 
+    [Header("Animations")]
+    [HideInInspector] public int runAnim = Animator.StringToHash("Run");
+    [HideInInspector] public int idleAnim = Animator.StringToHash("Idle");
+    [HideInInspector] public int jumpAnim = Animator.StringToHash("Jump");
+    [HideInInspector] public int landToIdleAnim = Animator.StringToHash("LandIdle");
+    [HideInInspector] public int climbAnim = Animator.StringToHash("Climb");
+    [HideInInspector] public int climStandAnim = Animator.StringToHash("ClimbStand");
+    [HideInInspector] public int deadStandAnim = Animator.StringToHash("Dead");
+    [HideInInspector] public int hammerIdleAnim = Animator.StringToHash("HammerIdle");
+    [HideInInspector] public int hammerRunAnim = Animator.StringToHash("HammerRun");
 
     [Header("Ground Cast")]
     public Vector2 boxCastSize;//y is height and x is widht 
@@ -48,20 +47,24 @@ public class Player : MonoBehaviour
 
     [Header("HammerTime")]
     public bool isHammerTime = false;
-    float hammerTimeDuration = 10000;
+    float hammerTimeDuration = 15;
     [Header("HammerSphereCast")]
     public bool visualizeHammerSphereCast = false;
     [SerializeField] float hammerSphereCastRadius = 1.5f;
+    [SerializeField] float hammerCastXOffset = .5f;
     public LayerMask layersOfEnemies;
 
     [Header("====>Debug<====")]
     [SerializeField] bool doDeath = true;
 
-
     void Awake()
     {
         stateManager = new StateManager(this);
         stateManager.Initialize(stateManager.idle);
+    }
+    void OnPlayerDeath()
+    {
+        stateManager.Transition(stateManager.dead);
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -70,7 +73,7 @@ public class Player : MonoBehaviour
             if (collision.gameObject.layer == 10 || collision.gameObject.layer == 7 || collision.gameObject.layer == 9)
             {
                 //layer 7 is barrel 9 is flame 10 is fallingBarrel
-                stateManager.Transition(stateManager.dead);
+                OnPlayerDeath();
             }
         }
     }
@@ -94,12 +97,6 @@ public class Player : MonoBehaviour
             //remove can climb variable and put it into inum as a state
         }
     }
-
-    void HammerTimeIsOver()
-    {
-        isHammerTime = false;
-    }
-
     void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Leader"))
@@ -129,7 +126,6 @@ public class Player : MonoBehaviour
             transform.rotation = new Quaternion(0, 0, 0, 0);
         else
             transform.rotation = new Quaternion(0, 180, 0, 0);
-
     }
     public void SetClimbState()
     {
@@ -154,17 +150,37 @@ public class Player : MonoBehaviour
         leaderXPos = currentLeader.transform.position.x;
         leaderEnd = leader.ladderEnd;
     }
+    void HammerTimeIsOver()
+    {
+        isHammerTime = false;
+    }
     public void HammerDestoryingCast()
     {
-        RaycastHit2D hit = Physics2D.CircleCast(transform.position, hammerSphereCastRadius, Vector2.zero, 0, layersOfEnemies);
+        bool facingRight = transform.rotation.y == 0;
+        if (facingRight)
+            hammerCastXOffset = Mathf.Abs(hammerCastXOffset);
+        else
+            hammerCastXOffset = Mathf.Abs(hammerCastXOffset) * -1;
+
+        RaycastHit2D hit = Physics2D.CircleCast(transform.position + new Vector3(hammerCastXOffset, 0), hammerSphereCastRadius, Vector2.zero, 0, layersOfEnemies);
         if (hit)
         {
-            //call destory functin in that barrel
-            Barrel barrel = hit.collider.GetComponent<Barrel>();
-            if (barrel)
-                barrel.OnHammered();
+            TimeController.current.FreezeTheTimeTemperory(1);
+            GameObject deathVFX = BarrelPool.current.EnemyDeathVFX();
+            deathVFX.transform.position = hit.collider.gameObject.transform.position;
+            //if barrel disable
+            //if flame destory
+            Flame isFlame = hit.collider.gameObject.GetComponent<Flame>();
+            if (isFlame)
+            {
+                Destroy(isFlame.gameObject);
+                ScoreCounter.current.AddScore(800);
+            }
             else
-                hit.collider.GetComponent<Flame>().OnHammered();
+            {
+                hit.collider.gameObject.SetActive(false);
+                ScoreCounter.current.AddScore(500);
+            }
         }
     }
     void OnDrawGizmos()
@@ -178,7 +194,7 @@ public class Player : MonoBehaviour
         if (visualizeHammerSphereCast)
         {
             if (stateManager.currentState == stateManager.hammerIdle || stateManager.currentState == stateManager.hammerRun)
-                Gizmos.DrawSphere(transform.position, hammerSphereCastRadius);
+                Gizmos.DrawSphere(transform.position + new Vector3(hammerCastXOffset, 0), hammerSphereCastRadius);
         }
     }
 }

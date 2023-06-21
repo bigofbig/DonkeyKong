@@ -8,16 +8,20 @@ public class TimeController : MonoBehaviour
     {
         current = this;
     }
-    public void TimeFreezeRequest(float duration)
+
+    internal void FreezeTheTimePermanetly()
+    {
+        Time.timeScale = 0;
+    }
+
+    public void FreezeTheTimeTemperory(float duration)
     {
         StartCoroutine(nameof(TemperoryTimeFreezeProcces), duration);
     }
     IEnumerator TemperoryTimeFreezeProcces(float duration)
     {
-        Debug.Log("Time freeze");
         Time.timeScale = 0;
         yield return new WaitForSecondsRealtime(duration);
-        Debug.Log("Time unfreeze");
         Time.timeScale = 1;
     }
 }

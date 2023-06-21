@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Barrel : MonoBehaviour,IHammerable
+public class Barrel : MonoBehaviour
 {
     [SerializeField] Rigidbody2D rb;
     float moveSeed = 4;
@@ -52,9 +52,18 @@ public class Barrel : MonoBehaviour,IHammerable
     }
     void OnEnable()
     {
+        GameOver.current.OnGameOver += OnGameOver;
         if (isFallingVectically) return;//so we seprate falling barrel logic with others...
         ChangeState(State.Roll);
         moveSeed = Mathf.Abs(moveSeed);
+    }
+    void OnDisable()
+    {
+        GameOver.current.OnGameOver -= OnGameOver;
+    }
+    void OnGameOver()
+    {
+        Destroy(gameObject);
     }
     void FixedUpdate()
     {
@@ -196,7 +205,6 @@ public class Barrel : MonoBehaviour,IHammerable
     {
         justRedirected = false;
     }
-
     IEnumerator Jump(float duration)
     {
         float timePassed = 0;
@@ -216,13 +224,6 @@ public class Barrel : MonoBehaviour,IHammerable
             yield return null;
         }
         Instantiate(flame, transform.position, Quaternion.identity);
-        gameObject.SetActive(false);
-    }
-    public void OnHammered()
-    {
-       TimeController.current.TimeFreezeRequest(1);
-        GameObject deathVFX= BarrelPool.current.EnemyDeathVFX();
-        deathVFX.transform.position = transform.position;
         gameObject.SetActive(false);
     }
     void OnDrawGizmos()

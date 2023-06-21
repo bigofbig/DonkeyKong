@@ -1,11 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class GameOver : MonoBehaviour
 {
-    public void OnGameOver()
+    public static GameOver current;
+    public Action OnGameOver;
+    public bool gameIsOver = false;
+    void Awake()
     {
-        Time.timeScale = 0;
+        current = this;
+    }
+    public void CallGameOver()
+    {
+        if (gameIsOver) return;
+        gameIsOver = true;
+        OnGameOver?.Invoke();
+        TimeController.current.FreezeTheTimePermanetly();
     }
 }

@@ -13,7 +13,7 @@ hammer idle inner functions:
 DONE cathces a and d button to swith between hammer run and idle
 DONE idle hammer anim
 
---->sphere cast for enemy destroying
+DONE sphere cast for enemy destroying
 DONE also we need ground cast we same logic of idle and run ground cst
 SpherCast Offset based on player facieng sphercast need to change pos based on facieng 
 enmyDeath:
@@ -24,12 +24,15 @@ destroy anim
 adding score 
 calling score indicator
 description: time gets freezed some seconds 
-death logic shloud be called from player not with barrel or flame through inteface
-its better to have an inner on trigger enmy destroy logic to be seprate and better maintainable
+DONE death logic shloud be called from player not with barrel or flame through inteface
+DONE does eneimes death has diffrent score?
+DONE changing hammer damagwer range offset based on mario facing !
 
-
-
-
+-->bonus counter:
+game over:
+we use observer pattern for game over
+we habve game over component which has a on game over 
+--> working on enimeis reaction on player death
 
 //game over and three live mehcanism
 //3 live UI

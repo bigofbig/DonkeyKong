@@ -1,9 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
-public class Flame : MonoBehaviour, IHammerable
+public class Flame : MonoBehaviour
 {
-
     Rigidbody2D rb;
     [SerializeField] float moveSpeed = 70;
     [SerializeField] float climbSpeed = 5;
@@ -43,6 +42,18 @@ public class Flame : MonoBehaviour, IHammerable
         rb = GetComponent<Rigidbody2D>();
         ladderMask = LayerMask.GetMask("Ladder");
         StartCoroutine(nameof(DirectionRandomizer));
+    }
+    void OnEnable()
+    {
+        GameOver.current.OnGameOver += OnGameOver;
+    }
+    void OnDisable()
+    {
+        GameOver.current.OnGameOver -= OnGameOver;
+    }
+    void OnGameOver()
+    {
+        Destroy(gameObject);
     }
     void FixedUpdate()
     {
@@ -201,9 +212,5 @@ public class Flame : MonoBehaviour, IHammerable
         }
     }
 
-    public void OnHammered()
-    {
-
-    }
 }
 

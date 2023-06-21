@@ -4,7 +4,7 @@ using UnityEngine;
 public class ScoreCounter : MonoBehaviour
 {
     public static ScoreCounter current;
-    [SerializeField] TMP_Text  textMeshPro;
+    [SerializeField] TMP_Text textMeshPro;
     int score = 0;
     void Awake()
     {
@@ -14,6 +14,19 @@ public class ScoreCounter : MonoBehaviour
     {
         GainedScoreIndicator.current.OnScoreGained(scoreToAdd);
         score += scoreToAdd;
-        textMeshPro.text = score.ToString();
+        //add zeros before score
+        string scoreStringed = score.ToString();
+        string zeroes = "";
+        if (scoreStringed.Length < 6)
+        {
+            int zeroesNeededToBeAdded = 6 - scoreStringed.Length;
+            for (int i = 0; i < zeroesNeededToBeAdded; i++)
+            {
+                zeroes += "0";
+            }
+        }
+
+        textMeshPro.text = "";
+        textMeshPro.text = zeroes + score;
     }
 }

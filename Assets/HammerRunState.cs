@@ -10,18 +10,15 @@ public class HammerRunState : Istate
     {
         this.player = player;
     }
-
     public void OnEnter()
     {
         playerShouldFaceRight = Input.GetKey(KeyCode.D);
         player.SetFaceing(playerShouldFaceRight);
         player.animator.Play(player.hammerRunAnim);
     }
-
     public void OnExit()
     {
     }
-
     public void OnFixedUpdate()
     {
         if (playerShouldFaceRight)
@@ -29,7 +26,6 @@ public class HammerRunState : Istate
         else
             player.rb.velocity = new Vector2(-1 * player.runSpeed, player.rb.velocity.y);
     }
-
     public void OnUpdate()
     {
 
