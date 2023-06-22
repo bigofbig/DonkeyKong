@@ -39,6 +39,7 @@ public class GameOver : MonoBehaviour
         }
         else
         {
+            ScoreCounter.score = 0;
             //ResetSocre
             //go to gameOver Screen
         }
