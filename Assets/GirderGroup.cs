@@ -14,6 +14,8 @@ public class GirderGroup : MonoBehaviour
             griders.Add(transform.GetChild(i).gameObject);
             gridersMainPos.Add(transform.GetChild(i).position);
         }
+        LineUpAllGriders();
+
     }
     //void Update()
     //{
