@@ -35,11 +35,15 @@ DONE we habve game over component which has a on game over
 DONE working on enimeis reaction on player death
 
 
--->game over and three live mehcanism
+DONE game over and three live mehcanism
 if plyaer have live ,on new round his scores remains
 //3 live UI
-
- 
+--> SOUNDS , climb sound
+--> stats counter , jumped barrels and hammered enemies
+DONE Reaching haj khanom,bonusCounter, OnWin Game setup, mario anim and rotate , heart activiation, enemies disable , donkey kong stop, pauline anim Stop
+DONE mario bug , when it comes at top of ladder idle dont play , when it comes to down of ladder idle anim plays , its probably a mechanism about reaching top of ladder 
+-->Start Menu 
+-->Game Over Menu
  
 //-Not Essential 
 //scoring on jump from multiple barrels with one jump

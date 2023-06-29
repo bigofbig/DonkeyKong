@@ -8,9 +8,11 @@ public class DeadState : Istate
 
     public void OnEnter()
     {
+
+        AudioManager.current.Play("Death");
         player.rb.bodyType = UnityEngine.RigidbodyType2D.Static;
         player.animator.Play(player.deadStandAnim);
-        GameOver.current.CallGameOver();
+        GameEvents.current.CallGameOver();
     }
 
     public void OnExit()

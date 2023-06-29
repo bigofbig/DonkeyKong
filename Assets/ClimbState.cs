@@ -32,6 +32,11 @@ public class ClimbState : Istate
         TransitionOnLeaderEnd();
         InputHandler();
         AnimationHandler();
+        Death();
+    }
+    void Death()
+    {
+        //becuse ontrigger enter is off on climbing , so we simulate it with spchercast.
         RaycastHit2D hit = Physics2D.CircleCast(player.transform.position, player.deathSphereRadius, Vector2.down);
         if (hit)
         {
@@ -39,9 +44,9 @@ public class ClimbState : Istate
                 Debug.Log(hit.collider.gameObject);
         }
     }
-
     void AnimationHandler()
     {
+        //the problem is probably about here 
         if (player.thisLeaderIsbroken)
         {
             if (!climbAnim)

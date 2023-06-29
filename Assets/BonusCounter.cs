@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -8,7 +9,14 @@ public class BonusCounter : MonoBehaviour
     void Start()
     {
         InvokeRepeating(nameof(DecreaseValue), 0, 1);
+        GameEvents.current.onWin += OnWin;
     }
+
+    void OnWin()
+    {
+        CancelInvoke();
+    }
+
     void DecreaseValue()
     {
         remainingValue -= 100;
@@ -16,7 +24,7 @@ public class BonusCounter : MonoBehaviour
         if (remainingValue <= 0)
         {
             //call game over 
-            GameOver.current.CallGameOver();
+            GameEvents.current.CallGameOver();
             textMeshPro.text = "00000";
             return;
         }

@@ -19,6 +19,8 @@ public class JumpState : Istate
     }
     public void OnEnter()
     {
+
+        AudioManager.current.Play("Jump");
         //Reseting temp Variables
         state = State.Jump;
         targetHeight = player.transform.position.y + player.jumpHeight;
@@ -81,6 +83,7 @@ public class JumpState : Istate
             color = Color.green;
             jumpedABarrel = true;
             ScoreCounter.current.AddScore(100);
+            AudioManager.current.Play("BarrelJump");
         }
         else
             color = Color.red;

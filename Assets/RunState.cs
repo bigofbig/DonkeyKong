@@ -11,6 +11,7 @@ public class RunState : Istate
     }
     public void OnEnter()
     {
+        AudioManager.current.Play("Walking", player);
         playerShouldFaceRight = Input.GetKey(KeyCode.D);
         player.SetFaceing(playerShouldFaceRight);
         player.animator.Play(player.runAnim);
@@ -18,6 +19,7 @@ public class RunState : Istate
 
     public void OnExit()
     {
+        AudioManager.current.Stop("Walking");
     }
 
     public void OnFixedUpdate()
@@ -33,7 +35,7 @@ public class RunState : Istate
     public void OnUpdate()
     {
 
-        if(player.isHammerTime)
+        if (player.isHammerTime)
             player.stateManager.Transition(player.stateManager.hammerRun);
 
         RaycastHit2D hit = Physics2D.BoxCast((Vector2)player.transform.position + player.boxCastOffset, player.boxCastSize, 0, Vector2.zero, 0, mask);

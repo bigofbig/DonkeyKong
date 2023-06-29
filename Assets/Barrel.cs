@@ -44,7 +44,7 @@ public class Barrel : MonoBehaviour
     [SerializeField] float fallSpeed = 6;
     [SerializeField] Vector3 fallingCastStartOffset;
     [SerializeField] Vector3 fallingCastEnd;
-
+    [SerializeField] bool justHit = false;
     void Awake()
     {
         if (isFallingVectically)
@@ -52,14 +52,16 @@ public class Barrel : MonoBehaviour
     }
     void OnEnable()
     {
-        GameOver.current.OnGameOver += OnGameOver;
+        GameEvents.current.onGameOver += OnGameOver;
+        GameEvents.current.onWin+= OnGameOver;
         if (isFallingVectically) return;//so we seprate falling barrel logic with others...
         ChangeState(State.Roll);
         moveSeed = Mathf.Abs(moveSeed);
     }
     void OnDisable()
     {
-        GameOver.current.OnGameOver -= OnGameOver;
+        GameEvents.current.onGameOver -= OnGameOver;
+        GameEvents.current.onWin-= OnGameOver;
     }
     void OnGameOver()
     {
@@ -84,13 +86,22 @@ public class Barrel : MonoBehaviour
             case State.Fall:
                 if (transform.position.y <= -9.9f)
                 {
+                    AudioManager.current.Play("Stomp", this, true);
                     ChangeState(State.Ignite);
                     return;
                 }
                 RaycastHit2D hit = Physics2D.Linecast(transform.position + fallingCastStartOffset, transform.position + fallingCastEnd, gridderMask);
                 Debug.DrawLine(transform.position + fallingCastStartOffset, transform.position + fallingCastEnd);
                 if (hit)
+                {
                     transform.position += Vector3.down * fallSpeed / 2 * Time.deltaTime;
+                    if (!justHit)
+                    {
+                        justHit = true;
+                        Invoke(nameof(JustHitCooldown), .2f);
+                        AudioManager.current.Play("Stomp", this, true);
+                    }
+                }
                 else
                     transform.position += Vector3.down * fallSpeed * Time.deltaTime;
                 break;
@@ -104,6 +115,10 @@ public class Barrel : MonoBehaviour
                 break;
 
         }
+    }
+    void JustHitCooldown()
+    {
+        justHit = false;
     }
     void Boundry()
     {
@@ -164,7 +179,6 @@ public class Barrel : MonoBehaviour
     }
     void ChangeState(State desiredState)
     {
-
         switch (desiredState)
         {
             case State.Fall:

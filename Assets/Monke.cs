@@ -16,10 +16,15 @@ public class Monke : MonoBehaviour
     [SerializeField] Vector2 blueBarrelSpawnPos;
     [SerializeField] bool visualizeSpawnPoses = false;
     bool barrelInstantiateTime = false;
-    
     void Start()
     {
         StartCoroutine(nameof(ThrowBlueFallingBarrel));
+        GameEvents.current.onWin += OnWin;
+    }
+    void OnWin()
+    {
+        StopAllCoroutines();
+        animator.Play(chestHit);
     }
     IEnumerator ThrowBlueFallingBarrel()
     {
@@ -28,7 +33,7 @@ public class Monke : MonoBehaviour
         {
             yield return null;
         }
-        GameObject barrel = Instantiate(blueFallingBarrel); 
+        GameObject barrel = Instantiate(blueFallingBarrel);
         barrel.transform.position = blueBarrelSpawnPos;
         barrelInstantiateTime = false;
         float animChangeDelay = .2f;

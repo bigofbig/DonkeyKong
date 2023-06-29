@@ -13,7 +13,7 @@ public class StateManager
     public DeadState dead;
     public HammerIdleState hammerIdle;
     public HammerRunState hammerRun;
-    //win State
+    public WinState win;
 
     public Action OnStateChanged;
 
@@ -26,6 +26,7 @@ public class StateManager
         dead = new DeadState(player);
         hammerIdle = new HammerIdleState(player);
         hammerRun = new HammerRunState(player);
+        win = new WinState(player);
     }
 
     public void Initialize(Istate startingState)

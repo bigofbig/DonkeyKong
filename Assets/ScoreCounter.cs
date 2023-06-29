@@ -14,7 +14,8 @@ public class ScoreCounter : MonoBehaviour
 
     public void AddScore(int scoreToAdd)
     {
-        GainedScoreIndicator.current.OnScoreGained(scoreToAdd);
+        if (scoreToAdd != 0)
+            GainedScoreIndicator.current.OnScoreGained(scoreToAdd);
         score += scoreToAdd;
         //add zeros before score
         string scoreStringed = score.ToString();

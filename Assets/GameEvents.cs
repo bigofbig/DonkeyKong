@@ -3,10 +3,11 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameOver : MonoBehaviour
+public class GameEvents : MonoBehaviour
 {
-    public static GameOver current;
-    public Action OnGameOver;
+    public static GameEvents current;
+    public Action onGameOver;
+    public Action onWin;
     public bool gameIsOver = false;
     float gameOverDuration = 4;
     void Awake()
@@ -17,22 +18,25 @@ public class GameOver : MonoBehaviour
     {
         if (gameIsOver) return;
         gameIsOver = true;
-        OnGameOver?.Invoke();
+        onGameOver?.Invoke();
         TimeController.current.FreezeTheTimePermanetly();
         PlayerLives.current.remainLives -= 1;
         StartCoroutine(nameof(StartNewGameSession), 1);
         //call for next raound if live remain , keep up else bring restart menu
         //score 
     }
+    public void CallOnWin()
+    {
+        onWin?.Invoke();
+    }
 
     IEnumerator StartNewGameSession()
     {
         yield return new WaitForSecondsRealtime(gameOverDuration);
 
-        if(PlayerLives.current.remainLives>0)
+        if (PlayerLives.current.remainLives > 0)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            Debug.Log("Called");
             //start new round with keeping scores
             //how to save score between two sessions?
             //Setup Ui

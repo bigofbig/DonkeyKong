@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
     }
     private void Start()
     {
-        GameOver.current.OnGameOver += OnPlayerDeath;
+        GameEvents.current.onGameOver += OnPlayerDeath;
     }
     void OnPlayerDeath()
     {
