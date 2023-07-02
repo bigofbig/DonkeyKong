@@ -12,4 +12,8 @@ public class ChangeLevel : MonoBehaviour
     {
         SceneManager.LoadScene("Game");
     }
+    public void ChangeToCutScene()
+    {
+        SceneManager.LoadScene("IntroCinematic");
+    }
 }

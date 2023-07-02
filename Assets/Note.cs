@@ -36,14 +36,12 @@ DONE working on enimeis reaction on player death
 
 
 DONE game over and three live mehcanism
-if plyaer have live ,on new round his scores remains
-//3 live UI
---> SOUNDS , climb sound
---> stats counter , jumped barrels and hammered enemies
+DOne 3 live UI
+--> SOUNDS , climb sound, hammer time ,enemy hammered,barrel roll
+
 DONE Reaching haj khanom,bonusCounter, OnWin Game setup, mario anim and rotate , heart activiation, enemies disable , donkey kong stop, pauline anim Stop
 DONE mario bug , when it comes at top of ladder idle dont play , when it comes to down of ladder idle anim plays , its probably a mechanism about reaching top of ladder 
--->Start Menu 
--->Game Over Menu
+DONE Start Menu 
  
 //-Not Essential 
 //scoring on jump from multiple barrels with one jump

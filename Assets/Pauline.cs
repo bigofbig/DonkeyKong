@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Pauline : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class Pauline : MonoBehaviour
         heart.SetActive(true);
         AudioManager.current.Play("Win");
         AudioManager.current.Stop("Music");
+        Invoke(nameof(ReturnToMenu), 7);
     }
     IEnumerator CallForHelp()
     {
@@ -36,5 +38,8 @@ public class Pauline : MonoBehaviour
         yield return new WaitForSeconds(screamAnimDuration);
         StartCoroutine(nameof(CallForHelp));
     }
-
+    void ReturnToMenu()
+    {
+        SceneManager.LoadScene("Menu");
+    }
 }

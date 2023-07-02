@@ -14,7 +14,6 @@ public class IdleState : Istate
     {
         if (player.transform.position.y > 6)
         {
-            Debug.LogError("WIN");
             GameEvents.current.CallOnWin();
             player.stateManager.Transition(player.stateManager.win);
             return;
