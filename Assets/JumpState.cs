@@ -103,6 +103,7 @@ public class JumpState : Istate
             if (player.isHammerTime)
             {
                 player.stateManager.Transition(player.stateManager.hammerIdle);
+                AudioManager.current.Play("HammerTime");
                 return;
             }
             player.stateManager.Transition(player.stateManager.idle);

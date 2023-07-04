@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class OnEnableDisableWithDelay : MonoBehaviour
@@ -7,7 +6,7 @@ public class OnEnableDisableWithDelay : MonoBehaviour
     [SerializeField] float disableDelay;
     void OnEnable()
     {
-        StartCoroutine(nameof(DisableWithDelay)); 
+        StartCoroutine(nameof(DisableWithDelay));
     }
     IEnumerator DisableWithDelay()
     {

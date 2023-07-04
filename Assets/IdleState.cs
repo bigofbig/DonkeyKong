@@ -19,14 +19,13 @@ public class IdleState : Istate
             return;
         }
         player.rb.velocity = Vector2.zero;
+
         if (player.stateManager.lastState == player.stateManager.jump)
             player.animator.Play(player.landToIdleAnim);
+        else if (player.stateManager.lastState == player.stateManager.climb && player.climbState == Player.ClimbStates.CanClimbDown)
+            player.animator.Play(player.ladderEndStand);
         else
-        {
-            //we have been here
-            //Debug.Log("idle anim play");
             player.animator.Play(player.idleAnim);
-        }
     }
 
     public void OnExit()
@@ -42,6 +41,7 @@ public class IdleState : Istate
     {
         if (player.isHammerTime)
             player.stateManager.Transition(player.stateManager.hammerIdle);
+
 
         RaycastHit2D hit = Physics2D.BoxCast((Vector2)player.transform.position + player.boxCastOffset, player.boxCastSize, 0, Vector2.zero, 0, mask);
         Color c = new Color();

@@ -46,12 +46,12 @@ public class Flame : MonoBehaviour
     void OnEnable()
     {
         GameEvents.current.onGameOver += OnGameOver;
-        GameEvents.current.onWin+= OnGameOver;
+        GameEvents.current.onWin += OnGameOver;
     }
     void OnDisable()
     {
         GameEvents.current.onGameOver -= OnGameOver;
-        GameEvents.current.onWin-= OnGameOver;
+        GameEvents.current.onWin -= OnGameOver;
     }
     void OnGameOver()
     {

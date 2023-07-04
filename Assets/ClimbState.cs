@@ -4,11 +4,12 @@ public class ClimbState : Istate
     Player player;
     float moveUpSpeed = 2;
     bool climbAnim = false;
+    bool isClimbingSoundPlaying = false;
+
     public ClimbState(Player player)
     {
         this.player = player;
     }
-
     public void OnEnter()
     {
         player.GetCurrentLeaderInfo();
@@ -17,6 +18,7 @@ public class ClimbState : Istate
         player.transform.position = new Vector3(player.leaderXPos, player.transform.position.y);
         player.animator.Play(player.climbAnim);
         climbAnim = true;
+        isClimbingSoundPlaying = false;
     }
     public void OnExit()
     {
@@ -29,10 +31,27 @@ public class ClimbState : Istate
     }
     public void OnUpdate()
     {
-        TransitionOnLeaderEnd();
+        ClimbSound();
         InputHandler();
         AnimationHandler();
         Death();
+        TransitionOnLeaderEnd();
+    }
+    void ClimbSound()
+    {
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
+        {
+            if (!isClimbingSoundPlaying)
+            {
+                AudioManager.current.Play("Walking");
+                isClimbingSoundPlaying = true;
+            }
+        }
+        else
+        {
+            AudioManager.current.Stop("Walking");
+            isClimbingSoundPlaying = false;
+        }
     }
     void Death()
     {
@@ -110,18 +129,26 @@ public class ClimbState : Istate
         //going down
         if (Input.GetKey(KeyCode.S))
             player.transform.position -= (Vector3)Vector2.up * moveUpSpeed * Time.deltaTime;
+
+        //sound handler
     }
     void TransitionOnLeaderEnd()
     {
 
         if (Input.GetKey(KeyCode.S))
             if (player.transform.position.y <= player.leaderClimbStartPoint)
+            {
+                AudioManager.current.Stop("Walking");
                 player.stateManager.Transition(player.stateManager.idle);
+            }
 
         if (player.thisLeaderIsbroken) return;
         if (Input.GetKey(KeyCode.W))
-            if (player.transform.position.y >= player.leaderClimbEndPoint)
+            if (player.transform.position.y > player.leaderClimbEndPoint)
+            {
+                AudioManager.current.Stop("Walking");
                 player.stateManager.Transition(player.stateManager.idle);
+            }
     }
 
 }

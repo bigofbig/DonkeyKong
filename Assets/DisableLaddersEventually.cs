@@ -19,7 +19,7 @@ public class DisableLaddersEventually : MonoBehaviour
             yield return new WaitForSeconds(disableRate);
             ladders[i].SetActive(false);
         }
-            yield return new WaitForSeconds(.7f);
+        yield return new WaitForSeconds(.7f);
         foreach (var ladder in ladders)
         {
             if (ladder.activeInHierarchy)

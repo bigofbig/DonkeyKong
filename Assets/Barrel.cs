@@ -45,6 +45,10 @@ public class Barrel : MonoBehaviour
     [SerializeField] Vector3 fallingCastStartOffset;
     [SerializeField] Vector3 fallingCastEnd;
     [SerializeField] bool justHit = false;
+
+    [Header("Sound")]
+    [SerializeField] AudioSource audioSource;
+    //[SerializeField] AudioClip barrelSound;
     void Awake()
     {
         if (isFallingVectically)
@@ -53,15 +57,17 @@ public class Barrel : MonoBehaviour
     void OnEnable()
     {
         GameEvents.current.onGameOver += OnGameOver;
-        GameEvents.current.onWin+= OnGameOver;
+        GameEvents.current.onWin += OnGameOver;
         if (isFallingVectically) return;//so we seprate falling barrel logic with others...
         ChangeState(State.Roll);
         moveSeed = Mathf.Abs(moveSeed);
+        audioSource.Play();
     }
     void OnDisable()
     {
         GameEvents.current.onGameOver -= OnGameOver;
-        GameEvents.current.onWin-= OnGameOver;
+        GameEvents.current.onWin -= OnGameOver;
+        audioSource.Stop();
     }
     void OnGameOver()
     {

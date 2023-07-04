@@ -1,17 +1,14 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class StateIndicator : MonoBehaviour
 {
-   [SerializeField] Player player;
+    [SerializeField] Player player;
     Text textComponent;
     void Start()
     {
         textComponent = GetComponent<Text>();
-        player.stateManager.OnStateChanged += ChangeText;    
+        player.stateManager.OnStateChanged += ChangeText;
     }
 
     void ChangeText()
@@ -20,7 +17,7 @@ public class StateIndicator : MonoBehaviour
     }
     private void OnDisable()
     {
-        player.stateManager.OnStateChanged -= ChangeText;    
+        player.stateManager.OnStateChanged -= ChangeText;
     }
 
 }

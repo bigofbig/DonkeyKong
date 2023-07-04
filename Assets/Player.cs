@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     [HideInInspector] public int landToIdleAnim = Animator.StringToHash("LandIdle");
     [HideInInspector] public int climbAnim = Animator.StringToHash("Climb");
     [HideInInspector] public int climStandAnim = Animator.StringToHash("ClimbStand");
+    [HideInInspector] public int ladderEndStand= Animator.StringToHash("LadderEndStand");
     [HideInInspector] public int deadStandAnim = Animator.StringToHash("Dead");
     [HideInInspector] public int hammerIdleAnim = Animator.StringToHash("HammerIdle");
     [HideInInspector] public int hammerRunAnim = Animator.StringToHash("HammerRun");
@@ -62,7 +63,7 @@ public class Player : MonoBehaviour
         stateManager = new StateManager(this);
         stateManager.Initialize(stateManager.idle);
     }
-    private void Start()
+    void Start()
     {
         GameEvents.current.onGameOver += OnPlayerDeath;
     }
@@ -87,7 +88,10 @@ public class Player : MonoBehaviour
         {
             Destroy(collision.gameObject);
             Invoke(nameof(HammerTimeIsOver), hammerTimeDuration);
+            AudioManager.current.Play("HammerTime");
+            AudioManager.current.Stop("Music");
             isHammerTime = true;
+
         }
         if (collision.CompareTag("Leader"))
         {
@@ -157,6 +161,8 @@ public class Player : MonoBehaviour
     void HammerTimeIsOver()
     {
         isHammerTime = false;
+        AudioManager.current.Stop("HammerTime");
+        AudioManager.current.Play("Music");
     }
     public void HammerDestoryingCast()
     {
@@ -169,6 +175,7 @@ public class Player : MonoBehaviour
         RaycastHit2D hit = Physics2D.CircleCast(transform.position + new Vector3(hammerCastXOffset, 0), hammerSphereCastRadius, Vector2.zero, 0, layersOfEnemies);
         if (hit)
         {
+            AudioManager.current.Play("Hammered");
             TimeController.current.FreezeTheTimeTemperory(1);
             GameObject deathVFX = BarrelPool.current.EnemyDeathVFX();
             deathVFX.transform.position = hit.collider.gameObject.transform.position;

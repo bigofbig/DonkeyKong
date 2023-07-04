@@ -37,7 +37,8 @@ DONE working on enimeis reaction on player death
 
 DONE game over and three live mehcanism
 DOne 3 live UI
---> SOUNDS , climb sound, hammer time ,enemy hammered,barrel roll
+--> SOUNDS , climb sound, hammer time ,enemy hammered
+climbed anim when reaching the tip of ladder , set the anim to climbed stand pos , 
 
 DONE Reaching haj khanom,bonusCounter, OnWin Game setup, mario anim and rotate , heart activiation, enemies disable , donkey kong stop, pauline anim Stop
 DONE mario bug , when it comes at top of ladder idle dont play , when it comes to down of ladder idle anim plays , its probably a mechanism about reaching top of ladder 
