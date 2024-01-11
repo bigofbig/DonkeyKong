@@ -93,7 +93,7 @@ TextureImporter:
       213: -2227914055873068571
     second: Mario spriteSheet_29
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 11
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -110,12 +110,10 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
-    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -154,8 +152,6 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
-  swizzle: 50462976
-  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -167,7 +163,6 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
-    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -180,7 +175,6 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
-    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -193,20 +187,6 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Server
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -852,39 +832,9 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      Mario spriteSheet_0: -1884503857092843616
-      Mario spriteSheet_1: -1095467196193942989
-      Mario spriteSheet_10: 2130133339747975704
-      Mario spriteSheet_11: 7079976239299740300
-      Mario spriteSheet_12: 5076406545646599229
-      Mario spriteSheet_13: -6253117866639431677
-      Mario spriteSheet_14: -3872267121693688901
-      Mario spriteSheet_15: -1883373829991058955
-      Mario spriteSheet_16: 4049278080513773029
-      Mario spriteSheet_17: -1450732168085104567
-      Mario spriteSheet_18: 8765679923316697456
-      Mario spriteSheet_19: -4147930494293278683
-      Mario spriteSheet_2: 4507600921679605909
-      Mario spriteSheet_20: 1555679951651427863
-      Mario spriteSheet_21: -7703059102262985670
-      Mario spriteSheet_22: 309836379819437636
-      Mario spriteSheet_23: -4617896652985734840
-      Mario spriteSheet_24: 4040968074373557490
-      Mario spriteSheet_25: 3429995945956524316
-      Mario spriteSheet_26: 5266637210265819415
-      Mario spriteSheet_27: 4886775666902911064
-      Mario spriteSheet_28: 7859331350145670804
-      Mario spriteSheet_29: -2227914055873068571
-      Mario spriteSheet_3: 4174646549947030629
-      Mario spriteSheet_4: 8690826190108282791
-      Mario spriteSheet_5: 1182327922880461303
-      Mario spriteSheet_6: 5615003282632584911
-      Mario spriteSheet_7: 1709830146026975520
-      Mario spriteSheet_8: -3419550731043117296
-      Mario spriteSheet_9: 1131271286942086707
-  mipmapLimitGroupName: 
+  spritePackingTag: 
   pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
